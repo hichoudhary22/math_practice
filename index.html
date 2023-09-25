@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math_Practice</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- navigation bar -->
+    <nav class="nav-bar">
+      <div class="icon">
+        <div class="heading">
+          <p class="main-heading">MATH</p>
+          <p class="sub-heading">practice</p>
+        </div>
+        <p class="version">marc-2</p>
+      </div>
+      <div class="right-section-nav-bar">
+        <div class="timer">
+          <label for="timer">Timer</label>
+          <input type="number" class="input-timer" name="timer" value="23" />
+          <button class="btn btn-timer">Start</button>
+        </div>
+        <div class="menu-button">
+          <button class="btn btn-menu">menu</button>
+        </div>
+      </div>
+    </nav>
+    <!-- main section -->
+    <div class="main">
+      <input type="number" class="limits lower-first" value="23" />
+      <input type="number" class="first-number" value="23" disabled />
+      <input type="number" class="limits upper-first" value="23" />
+      <input type="number" class="limits lower-second" value="23" />
+      <select class="select-operator">
+        <option value="+">&plus;</option>
+        <option value="-">&minus;</option>
+        <option value="*">&cross;</option>
+        <option value="/">&divide;</option>
+      </select>
+      <input type="number" class="second-number" value="23" disabled />
+      <input type="number" class="limits upper-second" value="23" />
+      <input type="number" class="answer" placeholder="answer" />
+      <button class="btn btn-set-limits">reset limits</button>
+      <button class="btn btn-check">check answer</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

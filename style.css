@@ -1,0 +1,139 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background-color: black;
+  color: white;
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  gap: 2rem;
+  padding: 1rem;
+  justify-content: center;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px;
+}
+.right-section-nav-bar {
+  display: flex;
+}
+.icon {
+  display: flex;
+  background-color: green;
+  padding: 0 10px 0 4px;
+  border-radius: 2.5cm;
+}
+.heading {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  margin: 0;
+  line-height: 0.7rem;
+  font-size: 14px;
+}
+.sub-heading {
+  font-size: 12px;
+}
+.version {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 8px;
+  padding: 0;
+  line-height: 4px;
+  padding-top: 4px;
+}
+input {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px dashed rgba(255, 255, 255, 0.75);
+  color: white;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.btn {
+  border: 2px dashed green;
+  color: green;
+  background-color: rgba(255, 255, 255, 0);
+}
+nav input {
+  width: 30px;
+  padding: 0;
+  margin: 0 0 0 6px;
+  padding: 5px;
+  border-radius: 2.5cm;
+}
+.btn-menu,
+.btn-timer,
+.timerStopped {
+  padding: 0;
+  margin: 0 0 0 6px;
+  padding: 5px;
+  border-radius: 2.5cm;
+  border: 2px dashed green;
+  color: green;
+  background-color: rgba(255, 255, 255, 0);
+}
+.timerRunning {
+  border: 2px dashed red;
+  color: red;
+  padding: 0;
+  margin: 0 0 0 6px;
+  padding: 5px;
+  border-radius: 2.5cm;
+  background-color: rgba(255, 255, 255, 0);
+}
+.main {
+  display: grid;
+  grid-template:
+    " lower-first . first-number upper-first" 40px
+    "lower-second select-operator second-number upper-second" 40px
+    "answer answer answer answer " 40px
+    "btn-set-limits btn-set-limits btn-check btn-check" 40px /40px 40px 1fr 40px;
+  gap: 0.75rem;
+  text-align: right;
+  width: 300px;
+}
+.lower-first {
+  grid-area: lower-first;
+}
+.first-number {
+  grid-area: first-number;
+}
+.upper-first {
+  grid-area: upper-first;
+}
+.lower-second {
+  grid-area: lower-second;
+}
+.select-operator {
+  grid-area: select-operator;
+  border: 2px dashed green;
+  color: green;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 20px;
+  border-radius: 50%;
+  /* -------------- */
+  appearance: none;
+  text-indent: 12px;
+  /* text-overflow: ""; */
+}
+.second-number {
+  grid-area: second-number;
+}
+.upper-second {
+  grid-area: upper-second;
+}
+.answer {
+  grid-area: answer;
+}
+.btn-set-limits {
+  grid-area: btn-set-limits;
+}
+.btn-check {
+  grid-area: btn-check;
+}
