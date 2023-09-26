@@ -138,7 +138,7 @@ function timerFunction() {
     inputTimer.value = appRangeData.timer;
   } else {
     // when timer is not running
-    timerSeconds = appRangeData.timer;
+    timerSeconds = appRangeData.timer = Number(inputTimer.value);
     timerRunning = setInterval(timerClockFunction, 1000);
     btnTimer.className = "timerRunning";
     btnTimer.textContent = "Stop";
@@ -148,7 +148,7 @@ function timerFunction() {
 
 function timerClockFunction() {
   inputTimer.value = --timerSeconds;
-  if (timerSeconds === 0) {
+  if (timerSeconds <= 0) {
     checkFunction(Number(inputAnswer.value));
     timerSeconds = appRangeData.timer;
   }

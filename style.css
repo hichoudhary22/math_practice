@@ -10,7 +10,7 @@ body {
   gap: 2rem;
   padding: 2rem;
   justify-content: center;
-  max-width: 90vw;
+  margin: 2rem;
 }
 nav {
   display: flex;
@@ -142,6 +142,7 @@ nav input {
   align-self: center;
   padding: 0.5rem;
   border-radius: 2.5cm;
+  font-size: 1.5rem !important;
 }
 .answer {
   grid-area: answer;
@@ -153,6 +154,7 @@ nav input {
   align-self: center;
   padding: 0.5rem;
   border-radius: 2.5cm;
+  font-size: 1.5rem !important;
 }
 .btn-set-limits {
   grid-area: btn-set-limits;
@@ -196,4 +198,7 @@ input#mixed-calculation {
 }
 .info {
   grid-area: info;
+}
+.main p {
+  font-size: 0.7rem;
 }
