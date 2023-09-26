@@ -121,7 +121,7 @@ function checkFunction(userInput) {
     console.log("try again");
     wrongBoard.textContent = `wrong ${++wrong}`;
     inputAnswer.focus();
-    navigator.vibrate(100);
+    navigator.vibrate(200);
     boardColor(false);
   }
 }
