@@ -92,7 +92,10 @@ nav input {
     "lower-second select-operator second-number upper-second"
     "right answer answer wrong "
     " btn-check btn-check btn-check btn-check"
-    "auto-submit-answer auto-submit-answer  . . " auto / minmax(2rem, 1fr)
+    "auto-submit-answer auto-submit-answer  mixed-calculation mixed-calculation" auto / minmax(
+      2rem,
+      1fr
+    )
     minmax(2rem, 1fr) minmax(2rem, 2.5fr) minmax(2rem, 1fr);
   gap: 0.5rem;
   padding: 0.5rem;
@@ -160,6 +163,13 @@ nav input {
   grid-area: auto-submit-answer;
 }
 input#auto-submit-answer {
+  transform: scale(2);
+  margin-left: 8px;
+}
+.mixed-calculation {
+  grid-area: mixed-calculation;
+}
+input#mixed-calculation {
   transform: scale(2);
   margin-left: 8px;
 }

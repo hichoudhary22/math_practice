@@ -25,6 +25,7 @@ const rightBoard = document.querySelector(".right");
 const wrongBoard = document.querySelector(".wrong");
 
 const checkboxAutoSubmit = document.querySelector("#auto-submit-answer");
+const checkboxMixedCalculation = document.querySelector("#mixed-calculation");
 
 // variables to use in app-------------------->
 const appRangeData = {
@@ -111,6 +112,7 @@ function checkFunction(userInput) {
     displayRandomNumbers();
     rightBoard.textContent = `✅ ${++right}`;
     boardColor(true);
+    checkboxMixedCalculation.checked ? randomOperator() : null;
   } else {
     console.log("try again");
     wrongBoard.textContent = `🚫 ${++wrong}`;
@@ -195,6 +197,32 @@ function operatorChange() {
   displayRandomNumbers();
 }
 
+function randomOperator() {
+  console.log("random operator");
+  const randomOperatorCode = Math.floor(Math.random() * 4);
+  console.log(randomOperatorCode);
+  switch (randomOperatorCode) {
+    case 0:
+      operator = "+";
+      break;
+    case 1:
+      operator = "-";
+      break;
+    case 2:
+      operator = "*";
+      break;
+    case 3:
+      operator = "/";
+      break;
+    default:
+      console.log("problem in random operator");
+  }
+  selectOperator.value = operator;
+  operatorChange();
+  displayData();
+  displayRandomNumbers();
+}
+
 // giving javascript power to modify contents of the page---------------------------->
 
 btnSetLimits.addEventListener("click", () => {
@@ -242,12 +270,10 @@ btnTimer.addEventListener("click", timerFunction);
 
 checkboxAutoSubmit.addEventListener("change", () => {
   if (checkboxAutoSubmit.checked) {
-    console.log("checked");
     btnCheck.style.display = "none";
     rightBoard.style.display = "none";
     wrongBoard.style.display = "none";
   } else {
-    console.log("unchecked");
     btnCheck.style.display = "inline-block";
     rightBoard.style.display = "inline-block";
     wrongBoard.style.display = "inline-block";
@@ -256,6 +282,20 @@ checkboxAutoSubmit.addEventListener("change", () => {
     right = 0;
     rightBoard.textContent = `✅ ${right}`;
     wrongBoard.textContent = `🚫 ${wrong}`;
+  }
+});
+
+checkboxMixedCalculation.addEventListener("change", () => {
+  if (checkboxMixedCalculation.checked) {
+    inputLowerFirst.style.display = "none";
+    inputUpperFirst.style.display = "none";
+    inputLowerSecond.style.display = "none";
+    inputUpperSecond.style.display = "none";
+  } else {
+    inputLowerFirst.style.display = "inline-block";
+    inputUpperFirst.style.display = "inline-block";
+    inputLowerSecond.style.display = "inline-block";
+    inputUpperSecond.style.display = "inline-block";
   }
 });
 
