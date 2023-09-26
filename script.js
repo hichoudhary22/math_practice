@@ -27,6 +27,15 @@ const wrongBoard = document.querySelector(".wrong");
 const checkboxAutoSubmit = document.querySelector("#auto-submit-answer");
 const checkboxMixedCalculation = document.querySelector("#mixed-calculation");
 
+const additionDataParagraph = document.querySelector(".additionData-paragraph");
+const subtractionDataParagraph = document.querySelector(
+  ".subtractionData-paragraph"
+);
+const multiplicationDataParagraph = document.querySelector(
+  ".multiplicationData-paragraph"
+);
+const divideDataParagraph = document.querySelector(".divideData-paragraph");
+
 // variables to use in app-------------------->
 const appRangeData = {
   lowerFirst: 10,
@@ -48,12 +57,11 @@ let x,
 // code starts here---------------->
 
 // setting up the stage for the very first time application loads
+updateAllParagraphs();
 localStorage.getItem("operator")
   ? (selectOperator.value = JSON.parse(localStorage.getItem("operator")))
   : null;
 operatorChange();
-displayData();
-displayRandomNumbers();
 
 function displayData() {
   inputLowerFirst.value = appRangeData.lowerFirst;
@@ -106,19 +114,17 @@ function resultFunction() {
 
 function checkFunction(userInput) {
   if (userInput === resultFunction()) {
-    console.log("right");
     inputAnswer.value = "";
     timerSeconds = appRangeData.timer;
     displayRandomNumbers();
     rightBoard.textContent = `✅ ${++right}`;
-    boardColor(true);
+    checkboxAutoSubmit.checked ? null : boardColor(true);
     checkboxMixedCalculation.checked ? randomOperator() : null;
   } else {
-    console.log("try again");
     wrongBoard.textContent = `🚫 ${++wrong}`;
     inputAnswer.focus();
     navigator.vibrate(1000);
-    boardColor(false);
+    checkboxAutoSubmit.checked ? null : boardColor(false);
   }
 }
 
@@ -167,8 +173,10 @@ function readData() {
     appRangeData.lowerSecond = clientSideRangeData.lowerSecond;
     appRangeData.upperSecond = clientSideRangeData.upperSecond;
     appRangeData.timer = clientSideRangeData.timer;
+
+    updateSingleParagraph();
   } else {
-    console.log("no previous data using default appData");
+    console.log("no previous data using default appData for " + dataType);
   }
 }
 
@@ -219,8 +227,25 @@ function randomOperator() {
   }
   selectOperator.value = operator;
   operatorChange();
-  displayData();
-  displayRandomNumbers();
+}
+
+function updateSingleParagraph() {
+  document.querySelector(
+    `.${dataType}-paragraph`
+  ).textContent = `${dataType} first number range: (${appRangeData.lowerFirst} to ${appRangeData.upperFirst}) and second number range: (${appRangeData.lowerSecond}) to ${appRangeData.upperSecond}`;
+}
+
+function updateAllParagraphs() {
+  const datas = [
+    "additionData",
+    "subtractionData",
+    "multiplicationData",
+    "divideData",
+  ];
+  for (const data of datas) {
+    dataType = data;
+    readData();
+  }
 }
 
 // giving javascript power to modify contents of the page---------------------------->
@@ -243,6 +268,7 @@ btnSetLimits.addEventListener("click", () => {
   //displaying random numbers according to the new range------------->
   //this signify that the range has been updated
   displayRandomNumbers();
+  updateSingleParagraph();
 
   //clearing local storage------------->
   localStorage.removeItem(`${dataType}`);

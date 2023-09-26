@@ -92,14 +92,17 @@ nav input {
     "lower-second select-operator second-number upper-second"
     "right answer answer wrong "
     " btn-check btn-check btn-check btn-check"
-    "auto-submit-answer auto-submit-answer  mixed-calculation mixed-calculation" auto / minmax(
-      2rem,
-      1fr
-    )
+    "auto-submit-answer auto-submit-answer  mixed-calculation mixed-calculation"
+    "hr1 hr1 hr1 hr1"
+    "additionData-paragraph additionData-paragraph additionData-paragraph additionData-paragraph "
+    "subtractionData-paragraph subtractionData-paragraph subtractionData-paragraph subtractionData-paragraph "
+    "multiplicationData-paragraph multiplicationData-paragraph multiplicationData-paragraph multiplicationData-paragraph "
+    "divideData-paragraph divideData-paragraph divideData-paragraph divideData-paragraph "
+    "hr2 hr2 hr2 hr2"
+    "info info info info" auto / minmax(2rem, 1fr)
     minmax(2rem, 1fr) minmax(2rem, 2.5fr) minmax(2rem, 1fr);
   gap: 0.5rem;
   padding: 0.5rem;
-  border: 2px solid white;
   /* place-items: center; */
 }
 .lower-first {
@@ -172,4 +175,25 @@ input#auto-submit-answer {
 input#mixed-calculation {
   transform: scale(2);
   margin-left: 8px;
+}
+.hr1 {
+  grid-area: hr1;
+}
+.additionData-paragraph {
+  grid-area: additionData-paragraph;
+}
+.subtractionData-paragraph {
+  grid-area: subtractionData-paragraph;
+}
+.multiplicationData-paragraph {
+  grid-area: multiplicationData-paragraph;
+}
+.divideData-paragraph {
+  grid-area: divideData-paragraph;
+}
+.hr2 {
+  grid-area: hr2;
+}
+.info {
+  grid-area: info;
 }
