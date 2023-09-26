@@ -21,6 +21,9 @@ const selectOperator = document.querySelector(".select-operator");
 const inputFirstNumber = document.querySelector(".first-number");
 const inputSecondNumber = document.querySelector(".second-number");
 
+const rightBoard = document.querySelector(".right");
+const wrongBoard = document.querySelector(".wrong");
+
 // variables to use in app-------------------->
 const appRangeData = {
   lowerFirst: 10,
@@ -34,7 +37,9 @@ let x,
   y,
   operator = "+",
   timerRunning,
-  timerSeconds;
+  timerSeconds,
+  right = 0,
+  wrong = 0;
 
 // code starts here---------------->
 
@@ -110,9 +115,13 @@ function checkFunction(userInput) {
     inputAnswer.value = "";
     timerSeconds = appRangeData.timer;
     displayRandomNumbers();
+    rightBoard.textContent = `RIGHT ${++right}`;
+    boardColor(true);
   } else {
     console.log("try again");
+    wrongBoard.textContent = `wrong ${++wrong}`;
     inputAnswer.focus();
+    boardColor(false);
   }
 }
 
@@ -139,6 +148,16 @@ function timerClockFunction() {
   if (timerSeconds === 0) {
     checkFunction(Number(inputAnswer.value));
     timerSeconds = appRangeData.timer;
+  }
+}
+
+function boardColor(flag) {
+  if (flag) {
+    rightBoard.style.backgroundColor = "green";
+    setTimeout(() => (rightBoard.style.backgroundColor = null), 500);
+  } else {
+    wrongBoard.style.backgroundColor = "red";
+    setTimeout(() => (wrongBoard.style.backgroundColor = null), 500);
   }
 }
 
@@ -176,7 +195,7 @@ btnCheck.addEventListener("click", () => {
 
 inputAnswer.addEventListener("keyup", (event) => {
   event.key === "Enter" ? checkFunction(Number(inputAnswer.value)) : null;
-  checkFunction(Number(inputAnswer.value));
+  // checkFunction(Number(inputAnswer.value)); //will run at every key up event
 });
 
 selectOperator.addEventListener("change", () => {

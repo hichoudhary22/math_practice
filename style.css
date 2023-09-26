@@ -10,6 +10,7 @@ body {
   gap: 2rem;
   padding: 2rem;
   justify-content: center;
+  max-width: 100vw;
 }
 nav {
   display: flex;
@@ -88,7 +89,7 @@ nav input {
   grid-template:
     " lower-first . first-number upper-first"
     "lower-second select-operator second-number upper-second"
-    ". answer answer . "
+    "right answer answer wrong "
     "btn-set-limits btn-set-limits btn-check btn-check" auto/ minmax(2rem, 1fr)
     minmax(2rem, 1fr) minmax(2rem, 2.5fr) minmax(2rem, 1fr);
   gap: 0.5rem;
@@ -127,9 +128,15 @@ nav input {
 .upper-second {
   grid-area: upper-second;
 }
+.right {
+  grid-area: right;
+}
 .answer {
   grid-area: answer;
   font-size: 3rem;
+}
+.wrong {
+  grid-area: wrong;
 }
 .btn-set-limits {
   grid-area: btn-set-limits;
