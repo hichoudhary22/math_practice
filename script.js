@@ -41,41 +41,25 @@ let x,
   timerRunning,
   timerSeconds,
   right = 0,
-  wrong = 0;
+  wrong = 0,
+  dataType = "additionData";
 
 // code starts here---------------->
 
 // setting up the stage for the very first time application loads
-
-// checking if client side storage has any previous limits data
-
-if (localStorage.getItem("data")) {
-  const clientSideRangeData = JSON.parse(localStorage.getItem("data"));
-
-  appRangeData.lowerFirst = clientSideRangeData.lowerFirst;
-  appRangeData.upperFirst = clientSideRangeData.upperFirst;
-  appRangeData.lowerSecond = clientSideRangeData.lowerSecond;
-  appRangeData.upperSecond = clientSideRangeData.upperSecond;
-  appRangeData.timer = clientSideRangeData.timer;
-} else {
-  console.log("no previous data");
-}
-
-displayData(appRangeData);
+localStorage.getItem("operator")
+  ? (selectOperator.value = JSON.parse(localStorage.getItem("operator")))
+  : null;
+operatorChange();
+displayData();
 displayRandomNumbers();
 
-function displayData(limitsData) {
-  inputLowerFirst.value = limitsData.lowerFirst;
-  inputUpperFirst.value = limitsData.upperFirst;
-  inputLowerSecond.value = limitsData.lowerSecond;
-  inputUpperSecond.value = limitsData.upperSecond;
-  inputTimer.value = limitsData.timer;
-}
-
-function randomInt(lowerLimit, upperLimit) {
-  const number =
-    Math.trunc(Math.random() * (upperLimit - lowerLimit)) + lowerLimit;
-  return number;
+function displayData() {
+  inputLowerFirst.value = appRangeData.lowerFirst;
+  inputUpperFirst.value = appRangeData.upperFirst;
+  inputLowerSecond.value = appRangeData.lowerSecond;
+  inputUpperSecond.value = appRangeData.upperSecond;
+  inputTimer.value = appRangeData.timer;
 }
 
 function displayRandomNumbers() {
@@ -84,10 +68,18 @@ function displayRandomNumbers() {
 
   x < y && operator === "-" ? ([x, y] = [y, x]) : null;
 
+  operator === "/" ? (x *= y) : null;
+
   inputFirstNumber.value = x;
   inputSecondNumber.value = y;
 
-  // inputAnswer.focus();
+  inputAnswer.focus();
+}
+
+function randomInt(lowerLimit, upperLimit) {
+  const number =
+    Math.trunc(Math.random() * (upperLimit - lowerLimit)) + lowerLimit;
+  return number;
 }
 
 function resultFunction() {
@@ -164,6 +156,45 @@ function boardColor(flag) {
   }
 }
 
+function readData() {
+  if (localStorage.getItem(`${dataType}`)) {
+    const clientSideRangeData = JSON.parse(localStorage.getItem(`${dataType}`));
+
+    appRangeData.lowerFirst = clientSideRangeData.lowerFirst;
+    appRangeData.upperFirst = clientSideRangeData.upperFirst;
+    appRangeData.lowerSecond = clientSideRangeData.lowerSecond;
+    appRangeData.upperSecond = clientSideRangeData.upperSecond;
+    appRangeData.timer = clientSideRangeData.timer;
+  } else {
+    console.log("no previous data using default appData");
+  }
+}
+
+function operatorChange() {
+  operator = selectOperator.value;
+  localStorage.setItem(`operator`, JSON.stringify(operator));
+  switch (selectOperator.value) {
+    case "+":
+      dataType = "additionData";
+      break;
+    case "-":
+      dataType = "subtractionData";
+      break;
+    case "*":
+      dataType = "multiplicationData";
+      break;
+    case "/":
+      dataType = "divideData";
+      break;
+    default:
+      console.log("problem in switch of operator selection");
+  }
+  console.log(dataType);
+  readData();
+  displayData();
+  displayRandomNumbers();
+}
+
 // giving javascript power to modify contents of the page---------------------------->
 
 btnSetLimits.addEventListener("click", () => {
@@ -174,22 +205,24 @@ btnSetLimits.addEventListener("click", () => {
     4. clear local storate of old data
     5. set new data
      */
-  // first & second-------->
+  // reading data from DOM and modifying the appRangeData-------->
 
   appRangeData.lowerFirst = Number(inputLowerFirst.value);
   appRangeData.upperFirst = Number(inputUpperFirst.value);
   appRangeData.lowerSecond = Number(inputLowerSecond.value);
   appRangeData.upperSecond = Number(inputUpperSecond.value);
 
-  // displaying numbers---------------->
-  displayData(appRangeData);
+  //displaying random numbers according to the new range------------->
+  //this signify that the range has been updated
   displayRandomNumbers();
 
   //clearing local storage------------->
-  localStorage.removeItem("data");
+  localStorage.removeItem(`${dataType}`);
+  localStorage.removeItem(`operator`);
 
   //setting new ranges in the local storage------------->
-  localStorage.setItem("data", JSON.stringify(appRangeData));
+  localStorage.setItem(`${dataType}`, JSON.stringify(appRangeData));
+  localStorage.setItem(`operator`, JSON.stringify(operator));
 });
 
 btnCheck.addEventListener("click", () => {
@@ -203,11 +236,7 @@ inputAnswer.addEventListener("keyup", (event) => {
   }
 });
 
-selectOperator.addEventListener("change", () => {
-  operator = selectOperator.value;
-  console.log(`operator is ${operator}`);
-  displayRandomNumbers();
-});
+selectOperator.addEventListener("change", operatorChange);
 
 btnTimer.addEventListener("click", timerFunction);
 
@@ -243,9 +272,10 @@ step 09: make it live using git
 step 10: right wrong panel
 step 11: vibration added but not working
 step 12: radio button/ checkbox for auto submit-> hide submit button and right wrong panel
-step 13: hide set limits button while timer running
+step 13: hide set limits button while timer running // skipped
 step 14: adding limits for all the operations
-step 15: mixed calculations
+step 15: displaying summary below grid
+step 16: mixed calculations
 second last: menu......
 last step: animations
 */
