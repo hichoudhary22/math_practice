@@ -6,15 +6,13 @@ body {
   background-color: black;
   color: white;
   display: grid;
-  grid-template-rows: max-content 1fr;
   gap: 2rem;
-  padding: 1rem;
+  padding: 2rem;
   justify-content: center;
 }
 nav {
   display: flex;
   justify-content: space-between;
-  margin: 4px;
 }
 .right-section-nav-bar {
   display: flex;
@@ -22,59 +20,55 @@ nav {
 .icon {
   display: flex;
   background-color: green;
-  padding: 0 10px 0 4px;
+  padding: 0 0.6rem 0 0.3rem;
   border-radius: 2.5cm;
 }
 .heading {
   display: flex;
   flex-direction: column;
-  padding: 4px;
+  padding: 0.3rem;
   margin: 0;
   line-height: 0.7rem;
-  font-size: 14px;
 }
 .sub-heading {
-  font-size: 12px;
+  font-size: 0.9rem;
 }
 .version {
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  font-size: 8px;
+  font-size: 0.5rem;
   padding: 0;
-  line-height: 4px;
-  padding-top: 4px;
+  line-height: 0.3rem;
+  padding-top: 0.3rem;
 }
 input {
   text-align: center;
   background-color: rgba(255, 255, 255, 0);
-  border: 2px dashed rgba(255, 255, 255, 0.75);
+  border: 2px solid white;
   color: white;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin: 0;
 }
 .btn {
-  border: 2px dashed green;
+  border: 2px solid green;
   color: green;
   background-color: rgba(255, 255, 255, 0);
 }
 nav input {
-  width: 30px;
-  padding: 0;
-  margin: 0 0 0 6px;
-  padding: 5px;
+  width: 2rem;
+  padding: 0.25rem;
   border-radius: 2.5cm;
 }
 .btn-menu,
 .btn-timer,
 .timerStopped {
   padding: 0;
-  margin: 0 0 0 6px;
-  padding: 5px;
+  margin: 0 0 0 0.25rem;
+  padding: 0.3rem;
   border-radius: 2.5cm;
-  border: 2px dashed green;
+  border: 2px solid green;
   color: green;
   background-color: rgba(255, 255, 255, 0);
 }
@@ -82,21 +76,19 @@ nav input {
   border: 2px dashed red;
   color: red;
   padding: 0;
-  margin: 0 0 0 6px;
-  padding: 5px;
+  margin: 0 0 0 0.25rem;
+  padding: 0.3rem;
   border-radius: 2.5cm;
   background-color: rgba(255, 255, 255, 0);
 }
 .main {
   display: grid;
   grid-template:
-    " lower-first . first-number upper-first" 40px
-    "lower-second select-operator second-number upper-second" 40px
-    "answer answer answer answer " 40px
-    "btn-set-limits btn-set-limits btn-check btn-check" 40px /40px 40px 1fr 40px;
+    " lower-first . first-number upper-first"
+    "lower-second select-operator second-number upper-second"
+    "answer answer answer answer "
+    "btn-set-limits btn-set-limits btn-check btn-check";
   gap: 0.75rem;
-  text-align: right;
-  width: 300px;
 }
 .lower-first {
   grid-area: lower-first;
@@ -111,11 +103,13 @@ nav input {
   grid-area: lower-second;
 }
 .select-operator {
+  height: 50px;
+  width: 50px;
   grid-area: select-operator;
   border: 2px dashed green;
   color: green;
   background-color: rgba(255, 255, 255, 0);
-  font-size: 20px;
+  font-size: 30px;
   border-radius: 50%;
   /* -------------- */
   appearance: none;

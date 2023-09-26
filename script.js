@@ -80,7 +80,7 @@ function displayRandomNumbers() {
   inputFirstNumber.value = x;
   inputSecondNumber.value = y;
 
-  inputAnswer.focus();
+  // inputAnswer.focus();
 }
 
 function resultFunction() {
