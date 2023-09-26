@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  font-size: 1.2rem;
 }
 body {
   background-color: black;
@@ -13,6 +14,7 @@ body {
 nav {
   display: flex;
   justify-content: space-between;
+  min-width: 400px;
 }
 .right-section-nav-bar {
   display: flex;
@@ -86,15 +88,21 @@ nav input {
   grid-template:
     " lower-first . first-number upper-first"
     "lower-second select-operator second-number upper-second"
-    "answer answer answer answer "
-    "btn-set-limits btn-set-limits btn-check btn-check";
-  gap: 0.75rem;
+    ". answer answer . "
+    "btn-set-limits btn-set-limits btn-check btn-check" auto/ minmax(2rem, 1fr)
+    minmax(2rem, 1fr) minmax(2rem, 2.5fr) minmax(2rem, 1fr);
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 2px solid white;
+  /* place-items: center; */
 }
 .lower-first {
   grid-area: lower-first;
+  /* min-width: .5rem; */
 }
 .first-number {
   grid-area: first-number;
+  font-size: 2rem;
 }
 .upper-first {
   grid-area: upper-first;
@@ -103,31 +111,31 @@ nav input {
   grid-area: lower-second;
 }
 .select-operator {
-  height: 50px;
-  width: 50px;
   grid-area: select-operator;
   border: 2px dashed green;
   color: green;
   background-color: rgba(255, 255, 255, 0);
-  font-size: 30px;
-  border-radius: 50%;
+  text-align: center;
   /* -------------- */
   appearance: none;
-  text-indent: 12px;
-  /* text-overflow: ""; */
+  font-size: 2rem;
 }
 .second-number {
   grid-area: second-number;
+  font-size: 2rem;
 }
 .upper-second {
   grid-area: upper-second;
 }
 .answer {
   grid-area: answer;
+  font-size: 3rem;
 }
 .btn-set-limits {
   grid-area: btn-set-limits;
+  font-size: 2rem;
 }
 .btn-check {
   grid-area: btn-check;
+  font-size: 2rem;
 }
