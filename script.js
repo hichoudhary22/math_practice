@@ -24,6 +24,8 @@ const inputSecondNumber = document.querySelector(".second-number");
 const rightBoard = document.querySelector(".right");
 const wrongBoard = document.querySelector(".wrong");
 
+const checkboxAutoSubmit = document.querySelector("#auto-submit-answer");
+
 // variables to use in app-------------------->
 const appRangeData = {
   lowerFirst: 10,
@@ -115,11 +117,11 @@ function checkFunction(userInput) {
     inputAnswer.value = "";
     timerSeconds = appRangeData.timer;
     displayRandomNumbers();
-    rightBoard.textContent = `RIGHT ${++right}`;
+    rightBoard.textContent = `✅ ${++right}`;
     boardColor(true);
   } else {
     console.log("try again");
-    wrongBoard.textContent = `wrong ${++wrong}`;
+    wrongBoard.textContent = `🚫 ${++wrong}`;
     inputAnswer.focus();
     navigator.vibrate(1000);
     boardColor(false);
@@ -196,7 +198,9 @@ btnCheck.addEventListener("click", () => {
 
 inputAnswer.addEventListener("keyup", (event) => {
   event.key === "Enter" ? checkFunction(Number(inputAnswer.value)) : null;
-  // checkFunction(Number(inputAnswer.value)); //will run at every key up event
+  if (checkboxAutoSubmit.checked) {
+    checkFunction(Number(inputAnswer.value));
+  }
 });
 
 selectOperator.addEventListener("change", () => {
@@ -207,16 +211,41 @@ selectOperator.addEventListener("change", () => {
 
 btnTimer.addEventListener("click", timerFunction);
 
+checkboxAutoSubmit.addEventListener("change", () => {
+  if (checkboxAutoSubmit.checked) {
+    console.log("checked");
+    btnCheck.style.display = "none";
+    rightBoard.style.display = "none";
+    wrongBoard.style.display = "none";
+  } else {
+    console.log("unchecked");
+    btnCheck.style.display = "inline-block";
+    rightBoard.style.display = "inline-block";
+    wrongBoard.style.display = "inline-block";
+    displayRandomNumbers();
+    wrong = 0;
+    right = 0;
+    rightBoard.textContent = `✅ ${right}`;
+    wrongBoard.textContent = `🚫 ${wrong}`;
+  }
+});
+
 /* 
-step 1: check if limits are already inserted in the web storage if available update variable
-step 2: if not use default limits from js script and set it to DOM
-step 3: generate random numbers and update DOM
-step 4: checking the answer
-step 5: changing the operator
-step 6: using enter to submit
-step 7: removing up and down arrow of number input
-step 8: timer setup
-step 9: make it live using git
-step 10: menu......
+step 01: check if limits are already inserted in the web storage if available update variable
+step 02: if not use default limits from js script and set it to DOM
+step 03: generate random numbers and update DOM
+step 04: checking the answer
+step 05: changing the operator
+step 06: using enter to submit
+step 07: removing up and down arrow of number input
+step 08: timer setup
+step 09: make it live using git
+step 10: right wrong panel
+step 11: vibration added but not working
+step 12: radio button/ checkbox for auto submit-> hide submit button and right wrong panel
+step 13: hide set limits button while timer running
+step 14: adding limits for all the operations
+step 15: mixed calculations
+second last: menu......
 last step: animations
 */

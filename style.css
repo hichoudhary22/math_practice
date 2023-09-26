@@ -87,10 +87,12 @@ nav input {
 .main {
   display: grid;
   grid-template:
+    ". btn-set-limits btn-set-limits ."
     " lower-first . first-number upper-first"
     "lower-second select-operator second-number upper-second"
     "right answer answer wrong "
-    "btn-set-limits btn-set-limits btn-check btn-check" auto/ minmax(2rem, 1fr)
+    " btn-check btn-check btn-check btn-check"
+    "auto-submit-answer auto-submit-answer  . . " auto / minmax(2rem, 1fr)
     minmax(2rem, 1fr) minmax(2rem, 2.5fr) minmax(2rem, 1fr);
   gap: 0.5rem;
   padding: 0.5rem;
@@ -130,6 +132,10 @@ nav input {
 }
 .right {
   grid-area: right;
+  justify-self: center;
+  align-self: center;
+  padding: 0.5rem;
+  border-radius: 2.5cm;
 }
 .answer {
   grid-area: answer;
@@ -137,6 +143,10 @@ nav input {
 }
 .wrong {
   grid-area: wrong;
+  justify-self: center;
+  align-self: center;
+  padding: 0.5rem;
+  border-radius: 2.5cm;
 }
 .btn-set-limits {
   grid-area: btn-set-limits;
@@ -145,4 +155,11 @@ nav input {
 .btn-check {
   grid-area: btn-check;
   font-size: 2rem;
+}
+.auto-submit-answer {
+  grid-area: auto-submit-answer;
+}
+input#auto-submit-answer {
+  transform: scale(2);
+  margin-left: 8px;
 }
