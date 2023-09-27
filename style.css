@@ -1,21 +1,20 @@
 * {
   padding: 0;
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 body {
   background-color: black;
   color: white;
   display: grid;
   gap: 2rem;
-  padding: 2rem;
   justify-content: center;
-  margin: 2rem;
+  margin: 0.5 0.5rem;
+  min-width: 220px;
 }
 nav {
   display: flex;
   justify-content: space-between;
-  min-width: 400px;
 }
 .right-section-nav-bar {
   display: flex;
@@ -63,6 +62,9 @@ nav input {
   width: 2rem;
   padding: 0.25rem;
   border-radius: 2.5cm;
+}
+.menu-button {
+  display: none;
 }
 .btn-menu,
 .btn-timer,
