@@ -56,7 +56,7 @@ let x,
 
 // code starts here---------------->
 
-// setting up the stage for the very first time application loads
+// setting up the stage when the very first time application loads
 updateAllParagraphs();
 localStorage.getItem("operator")
   ? (selectOperator.value = JSON.parse(localStorage.getItem("operator")))
@@ -82,7 +82,7 @@ function displayRandomNumbers() {
   inputFirstNumber.value = x;
   inputSecondNumber.value = y;
 
-  inputAnswer.focus();
+  // inputAnswer.focus();
 }
 
 function randomInt(lowerLimit, upperLimit) {
@@ -173,17 +173,16 @@ function readData() {
     appRangeData.lowerSecond = clientSideRangeData.lowerSecond;
     appRangeData.upperSecond = clientSideRangeData.upperSecond;
     appRangeData.timer = clientSideRangeData.timer;
-
-    updateSingleParagraph();
   } else {
     console.log("no previous data using default appData for " + dataType);
   }
+  updateSingleParagraph();
 }
 
 function operatorChange() {
   operator = selectOperator.value;
   localStorage.setItem(`operator`, JSON.stringify(operator));
-  switch (selectOperator.value) {
+  switch (operator) {
     case "+":
       dataType = "additionData";
       break;
@@ -199,17 +198,13 @@ function operatorChange() {
     default:
       console.log("problem in switch of operator selection");
   }
-  console.log(dataType);
   readData();
   displayData();
   displayRandomNumbers();
 }
 
 function randomOperator() {
-  console.log("random operator");
-  const randomOperatorCode = Math.floor(Math.random() * 4);
-  console.log(randomOperatorCode);
-  switch (randomOperatorCode) {
+  switch (Math.floor(Math.random() * 4)) {
     case 0:
       operator = "+";
       break;
@@ -232,7 +227,7 @@ function randomOperator() {
 function updateSingleParagraph() {
   document.querySelector(
     `.${dataType}-paragraph`
-  ).textContent = `${dataType} first number range: (${appRangeData.lowerFirst} to ${appRangeData.upperFirst}) and second number range: (${appRangeData.lowerSecond}) to ${appRangeData.upperSecond}`;
+  ).textContent = `${dataType} first number range: (${appRangeData.lowerFirst} to ${appRangeData.upperFirst}) and second number range: (${appRangeData.lowerSecond} to ${appRangeData.upperSecond})`;
 }
 
 function updateAllParagraphs() {
