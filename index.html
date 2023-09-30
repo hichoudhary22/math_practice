@@ -8,87 +8,87 @@
   </head>
   <body>
     <!-- navigation bar -->
-    <nav class="nav-bar">
+    <div class="nav-bar">
       <div class="icon">
-        <div class="heading">
-          <p class="main-heading">MATH</p>
-          <p class="sub-heading">practice</p>
-        </div>
-        <p class="version">marc-2</p>
-      </div>
-      <div class="right-section-nav-bar">
-        <div class="timer">
-          <label for="timer">Timer</label>
-          <input type="number" class="input-timer" name="timer" />
-          <button class="btn btn-timer">Start</button>
-        </div>
-        <div class="menu-button">
-          <button class="btn btn-menu">menu</button>
-        </div>
-      </div>
-    </nav>
-    <!-- main section -->
-    <div class="main">
-      <input type="number" class="limits lower-first" />
-      <input type="number" class="first-number" disabled />
-      <input type="number" class="limits upper-first" />
-      <input type="number" class="limits lower-second" />
-      <select class="select-operator">
-        <option value="+">&plus;</option>
-        <option value="-">&minus;</option>
-        <option value="*">&times;</option>
-        <option value="/">&divide;</option>
-      </select>
-      <input type="number" class="second-number" disabled />
-      <input type="number" class="limits upper-second" />
-      <p class="right">✅ 0</p>
-      <input type="number" class="answer" placeholder="ans" />
-      <p class="wrong">🚫 0</p>
-      <button class="btn btn-set-limits">Set Limits</button>
-      <button class="btn btn-check">check answer</button>
-      <div class="auto-submit-answer">
-        <label for="auto-submit-answer">auto submit answer??</label>
-        <input
-          type="checkbox"
-          name="auto-submit-answer"
-          id="auto-submit-answer"
+        <img
+          src="mathPracticeLogo.png"
+          height="40px"
+          alt="math practice logo"
         />
       </div>
-      <div class="mixed-calculation">
-        <label for="mixed-calculation">start mixed calculation</label>
-        <input
-          type="checkbox"
-          name="mixed-calculation"
-          id="mixed-calculation"
-        />
+      <div class="timer-section">
+        <label for="timer">Timer</label>
+        <input type="number" class="input-timer" name="timer" />
+        <button class="btn btn-timer">Start</button>
       </div>
-      <hr class="hr1" />
-      <p class="additionData-paragraph">
-        additionData first number range: (10 - 20) and second number range: (10
-        - 20)
-      </p>
-      <p class="subtractionData-paragraph">
-        subtractionData first number range: (10 - 20) and second number range:
-        (10 - 20)
-      </p>
-      <p class="multiplicationData-paragraph">
-        multiplicationData first number range: (10 - 20) and second number
-        range: (10 - 20)
-      </p>
-      <p class="divideData-paragraph">
-        divideData first number range: (10 - 20) and second number range: (10 -
-        20)
-      </p>
-      <hr class="hr2" />
-      <div class="info">
-        <p>
-          <span>info</span> 1. for subtraction first number will always be
-          bigger than the second one
-        </p>
-        <p>
-          2. for divide first number will be miltiplication of first number and
-          second number, this it will be perfectly dividible
-        </p>
+    </div>
+    <div class="app-body">
+      <!-- message board -->
+      <div class="message-board">
+        <p class="right-or-wrong">not there yet</p>
+        <p class="output"></p>
+      </div>
+      <!-- main section -->
+      <div class="main">
+        <input type="number" class="first-number" disabled />
+        <select class="select-operator">
+          <option value="+">&plus;</option>
+          <option value="-">&minus;</option>
+          <option value="*">&times;</option>
+          <option value="/">&divide;</option>
+        </select>
+        <input type="number" class="second-number" disabled />
+        <input type="number" class="answer" placeholder="ans" />
+      </div>
+    </div>
+
+    <div class="bottom-nav-bar">
+      <button class="btn btn-addition">&plus;</button>
+      <button class="btn btn-subtraction">&minus;</button>
+      <button class="btn btn-multiplication">&times;</button>
+      <button class="btn btn-divide">&divide;</button>
+      <button class="btn btn-more">...</button>
+    </div>
+    <div class="modal-window">
+      <div class="modal-window-content">
+        <p class="specific-content"></p>
+        <div class="save-or-cancel">
+          <button class="save-limits-data">save</button>
+          <span class="hide-modal-window">&times;</span>
+        </div>
+        <ul>
+          <li>
+            First Number ranges from :
+            <input type="number" class="limits lower-first" /> to :
+            <input type="number" class="limits upper-first" />
+          </li>
+          <li>
+            Second Number ranges from :
+            <input type="number" class="limits lower-second" /> to :
+            <input type="number" class="limits upper-second" />
+          </li>
+        </ul>
+      </div>
+      <div class="modal-window-content-additionData">
+        <label for="addition-continious-operations"
+          >continious addition problems???</label
+        >
+        <input type="checkbox" class="continious-addition-problems" />
+      </div>
+      <div class="modal-window-content-subtractionData"></div>
+      <div class="modal-window-content-multiplicationData">
+        <label for="learn-table-multiplication">learn a table</label>
+        <input type="number" class="learn-table-multiplication-number" />
+        <input type="checkbox" class="learn-table-multiplication-checkbox" />
+      </div>
+      <div class="modal-window-content-divideData">
+        <label for="learn-table-divide">learn a table</label>
+        <input type="number" class="learn-table-divide-number" />
+        <input type="checkbox" class="learn-table-divide-checkbox" />
+      </div>
+      <div class="modal-window-content-more">
+        <!-- <label for="mixed-calcultaion"> mixed-calcultaion </label>
+        <input type="checkbox" class="mixed-calculation" /> -->
       </div>
     </div>
     <script src="script.js"></script>

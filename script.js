@@ -2,42 +2,72 @@
 
 // required dom elements:------------------>
 
+//top nav bar items---------------------->
 const inputTimer = document.querySelector(".input-timer");
+const btnTimer = document.querySelector(".btn-timer");
 
+// message section---------------------->
+const right_or_wrong = document.querySelector(".right-or-wrong");
+const output = document.querySelector(".output");
+
+//main section items----------------------->
+const inputFirstNumber = document.querySelector(".first-number");
+const selectOperator = document.querySelector(".select-operator");
+const inputSecondNumber = document.querySelector(".second-number");
+const inputAnswer = document.querySelector(".answer");
+
+// bottom nav bar buttons-------------------->
+const btnAddition = document.querySelector(".btn-addition");
+const btnSubtraction = document.querySelector(".btn-subtraction");
+const btnMultiplication = document.querySelector(".btn-multiplication");
+const btnDivide = document.querySelector(".btn-divide");
+const btnMore = document.querySelector(".btn-more");
+
+// modal windows-------------------------->
+const modalWindow = document.querySelector(".modal-window");
+const modalWindowContent = document.querySelector(".modal-window-content");
+
+//general modal window elements----------------------->
+const btnSaveLimitsData = document.querySelector(".save-limits-data");
+const btnCancel = document.querySelector(".hide-modal-window");
 const inputLowerFirst = document.querySelector(".lower-first");
 const inputUpperFirst = document.querySelector(".upper-first");
 const inputLowerSecond = document.querySelector(".lower-second");
 const inputUpperSecond = document.querySelector(".upper-second");
 
-const inputAnswer = document.querySelector(".answer");
-
-const btnTimer = document.querySelector(".btn-timer");
-const btnMenu = document.querySelector(".btn-menu");
-const btnSetLimits = document.querySelector(".btn-set-limits");
-const btnCheck = document.querySelector(".btn-check");
-
-const selectOperator = document.querySelector(".select-operator");
-
-const inputFirstNumber = document.querySelector(".first-number");
-const inputSecondNumber = document.querySelector(".second-number");
-
-const rightBoard = document.querySelector(".right");
-const wrongBoard = document.querySelector(".wrong");
-
-const checkboxAutoSubmit = document.querySelector("#auto-submit-answer");
-const checkboxMixedCalculation = document.querySelector("#mixed-calculation");
-
-const additionDataParagraph = document.querySelector(".additionData-paragraph");
-const subtractionDataParagraph = document.querySelector(
-  ".subtractionData-paragraph"
+// specific modal windows------------------->
+const modalWindowContentAdditionData = document.querySelector(
+  ".modal-window-content-additionData"
 );
-const multiplicationDataParagraph = document.querySelector(
-  ".multiplicationData-paragraph"
+const modalWindowContentSubtractionData = document.querySelector(
+  ".modal-window-content-subtractionData"
 );
-const divideDataParagraph = document.querySelector(".divideData-paragraph");
+const modalWindowContentMultiplicationData = document.querySelector(
+  ".modal-window-content-multiplicationData"
+);
+const modalWindowContentDivideData = document.querySelector(
+  ".modal-window-content-divideData"
+);
+
+// specific elements of specific modal windows---------------------------->
+const continiousAdditionProblems = document.querySelector(
+  ".continious-addition-problems"
+);
+const learnTableMultiplicationCheckbox = document.querySelector(
+  ".learn-table-multiplication-checkbox"
+);
+const learnTableMultiplicationNumber = document.querySelector(
+  ".learn-table-multiplication-number"
+);
+const learnTableDivideCheckbox = document.querySelector(
+  ".learn-table-divide-checkbox"
+);
+const learnTableDivideNumber = document.querySelector(
+  ".learn-table-divide-number"
+);
 
 // variables to use in app-------------------->
-const appRangeData = {
+let appRangeData = {
   lowerFirst: 10,
   upperFirst: 20,
   lowerSecond: 10,
@@ -50,39 +80,39 @@ let x,
   operator = "+",
   timerRunning,
   timerSeconds,
-  right = 0,
-  wrong = 0,
-  dataType = "additionData";
+  dataType = "additionData",
+  result,
+  continious_addition_problems = false;
 
 // code starts here---------------->
 
 // setting up the stage when the very first time application loads
-updateAllParagraphs();
-localStorage.getItem("operator")
-  ? (selectOperator.value = JSON.parse(localStorage.getItem("operator")))
-  : null;
-operatorChange();
+readData();
+displayRandomNumbers();
 
-function displayData() {
-  inputLowerFirst.value = appRangeData.lowerFirst;
-  inputUpperFirst.value = appRangeData.upperFirst;
-  inputLowerSecond.value = appRangeData.lowerSecond;
-  inputUpperSecond.value = appRangeData.upperSecond;
-  inputTimer.value = appRangeData.timer;
+function readData() {
+  if (localStorage.getItem(`${dataType}`)) {
+    appRangeData = JSON.parse(localStorage.getItem(`${dataType}`));
+  } else {
+    console.log("no previous data using default appData for " + dataType);
+  }
 }
 
 function displayRandomNumbers() {
-  x = randomInt(appRangeData.lowerFirst, appRangeData.upperFirst);
+  x =
+    !continious_addition_problems && operator === "+"
+      ? randomInt(appRangeData.lowerFirst, appRangeData.upperFirst)
+      : result;
   y = randomInt(appRangeData.lowerSecond, appRangeData.upperSecond);
 
-  x < y && operator === "-" ? ([x, y] = [y, x]) : null;
-
+  operator === "-" && x < y ? ([x, y] = [y, x]) : null;
   operator === "/" ? (x *= y) : null;
 
   inputFirstNumber.value = x;
   inputSecondNumber.value = y;
 
-  // inputAnswer.focus();
+  inputAnswer.focus();
+  resultFunction();
 }
 
 function randomInt(lowerLimit, upperLimit) {
@@ -92,7 +122,6 @@ function randomInt(lowerLimit, upperLimit) {
 }
 
 function resultFunction() {
-  let result;
   switch (operator) {
     case "+":
       result = x + y;
@@ -109,79 +138,21 @@ function resultFunction() {
     default:
       console.log("error in operator division of resultFunction");
   }
-  return result;
 }
 
 function checkFunction(userInput) {
-  if (userInput === resultFunction()) {
+  if (userInput === result) {
     inputAnswer.value = "";
-    timerSeconds = appRangeData.timer;
+    right_or_wrong.textContent = "right!!!!!";
+    output.textContent = `${x} ${operator} ${y} = ${result}`;
     displayRandomNumbers();
-    rightBoard.textContent = `✅ ${++right}`;
-    checkboxAutoSubmit.checked ? null : boardColor(true);
-    checkboxMixedCalculation.checked ? randomOperator() : null;
   } else {
-    wrongBoard.textContent = `🚫 ${++wrong}`;
-    inputAnswer.focus();
-    navigator.vibrate(1000);
-    checkboxAutoSubmit.checked ? null : boardColor(false);
+    output.textContent = "";
+    right_or_wrong.textContent = "not there yet!!! keep trying...";
   }
-}
-
-function timerFunction() {
-  if (timerRunning) {
-    // when timer is running
-    clearInterval(timerRunning);
-    btnTimer.className = "timerStopped";
-    btnTimer.textContent = "Start";
-    timerRunning = false;
-    inputTimer.value = appRangeData.timer;
-  } else {
-    // when timer is not running
-    timerSeconds = appRangeData.timer = Number(inputTimer.value);
-    timerRunning = setInterval(timerClockFunction, 1000);
-    btnTimer.className = "timerRunning";
-    btnTimer.textContent = "Stop";
-    inputAnswer.focus();
-  }
-}
-
-function timerClockFunction() {
-  inputTimer.value = --timerSeconds;
-  if (timerSeconds <= 0) {
-    checkFunction(Number(inputAnswer.value));
-    timerSeconds = appRangeData.timer;
-  }
-}
-
-function boardColor(flag) {
-  if (flag) {
-    rightBoard.style.backgroundColor = "green";
-    setTimeout(() => (rightBoard.style.backgroundColor = null), 500);
-  } else {
-    wrongBoard.style.backgroundColor = "red";
-    setTimeout(() => (wrongBoard.style.backgroundColor = null), 500);
-  }
-}
-
-function readData() {
-  if (localStorage.getItem(`${dataType}`)) {
-    const clientSideRangeData = JSON.parse(localStorage.getItem(`${dataType}`));
-
-    appRangeData.lowerFirst = clientSideRangeData.lowerFirst;
-    appRangeData.upperFirst = clientSideRangeData.upperFirst;
-    appRangeData.lowerSecond = clientSideRangeData.lowerSecond;
-    appRangeData.upperSecond = clientSideRangeData.upperSecond;
-    appRangeData.timer = clientSideRangeData.timer;
-  } else {
-    console.log("no previous data using default appData for " + dataType);
-  }
-  updateSingleParagraph();
 }
 
 function operatorChange() {
-  operator = selectOperator.value;
-  localStorage.setItem(`operator`, JSON.stringify(operator));
   switch (operator) {
     case "+":
       dataType = "additionData";
@@ -198,9 +169,6 @@ function operatorChange() {
     default:
       console.log("problem in switch of operator selection");
   }
-  readData();
-  displayData();
-  displayRandomNumbers();
 }
 
 function randomOperator() {
@@ -222,30 +190,67 @@ function randomOperator() {
   }
   selectOperator.value = operator;
   operatorChange();
+  displayRandomNumbers();
 }
 
-function updateSingleParagraph() {
-  document.querySelector(
-    `.${dataType}-paragraph`
-  ).textContent = `${dataType} first number range: (${appRangeData.lowerFirst} to ${appRangeData.upperFirst}) and second number range: (${appRangeData.lowerSecond} to ${appRangeData.upperSecond})`;
+function displayData() {
+  inputLowerFirst.value = appRangeData.lowerFirst;
+  inputUpperFirst.value = appRangeData.upperFirst;
+  inputLowerSecond.value = appRangeData.lowerSecond;
+  inputUpperSecond.value = appRangeData.upperSecond;
 }
 
-function updateAllParagraphs() {
-  const datas = [
-    "additionData",
-    "subtractionData",
-    "multiplicationData",
-    "divideData",
-  ];
-  for (const data of datas) {
-    dataType = data;
-    readData();
+function bottomNavBarButtonPressed(newOperator) {
+  inputFirstNumber.value = inputSecondNumber.value = "";
+  hideAllModalWindows();
+  inputAnswer.disabled = true;
+  operator = newOperator;
+  operatorChange();
+  readData();
+  displayData();
+  modalWindow.style.display = "flex";
+  modalWindowContent.style.display = "block";
+  document.querySelector(`.modal-window-content-${dataType}`).style.display =
+    "block";
+}
+
+function hideAllModalWindows() {
+  modalWindow.style.display = "none";
+  modalWindowContentAdditionData.style.display = "none";
+  modalWindowContentSubtractionData.style.display = "none";
+  modalWindowContentMultiplicationData.style.display = "none";
+  modalWindowContentDivideData.style.display = "none";
+  continiousAdditionProblems.checked = continious_addition_problems;
+  inputAnswer.disabled = false;
+}
+function learnTable(number) {
+  if (number) {
+    appRangeData.lowerFirst = appRangeData.upperFirst = number;
+    appRangeData.lowerSecond = 2;
+    appRangeData.upperSecond = 9;
+    inputLowerFirst.disabled =
+      inputUpperFirst.disabled =
+      inputLowerSecond.disabled =
+      inputUpperSecond.disabled =
+        true;
+    inputLowerFirst.value =
+      inputUpperFirst.value =
+      inputLowerSecond.value =
+      inputUpperSecond.value =
+        "";
+  } else {
+    inputLowerFirst.disabled =
+      inputUpperFirst.disabled =
+      inputLowerSecond.disabled =
+      inputUpperSecond.disabled =
+        false;
+    displayData();
   }
 }
 
 // giving javascript power to modify contents of the page---------------------------->
 
-btnSetLimits.addEventListener("click", () => {
+btnSaveLimitsData.addEventListener("click", () => {
   /* 
     1. get the numbers from DOM
     2. modify the numbers range object
@@ -262,62 +267,61 @@ btnSetLimits.addEventListener("click", () => {
 
   //displaying random numbers according to the new range------------->
   //this signify that the range has been updated
-  displayRandomNumbers();
-  updateSingleParagraph();
 
   //clearing local storage------------->
-  localStorage.removeItem(`${dataType}`);
-  localStorage.removeItem(`operator`);
+  localStorage.removeItem(dataType);
 
   //setting new ranges in the local storage------------->
-  localStorage.setItem(`${dataType}`, JSON.stringify(appRangeData));
-  localStorage.setItem(`operator`, JSON.stringify(operator));
-});
+  localStorage.setItem(dataType, JSON.stringify(appRangeData));
 
-btnCheck.addEventListener("click", () => {
-  checkFunction(Number(inputAnswer.value));
-});
+  // closing the modal window-------------------->
+  readData();
 
-inputAnswer.addEventListener("keyup", (event) => {
-  event.key === "Enter" ? checkFunction(Number(inputAnswer.value)) : null;
-  if (checkboxAutoSubmit.checked) {
-    checkFunction(Number(inputAnswer.value));
+  right_or_wrong.textContent = "data saved";
+  if (continiousAdditionProblems.checked) {
+    continious_addition_problems = continiousAdditionProblems.checked;
+    result = 0;
   }
+  operatorChange();
+  displayRandomNumbers();
+  hideAllModalWindows();
 });
 
-selectOperator.addEventListener("change", operatorChange);
+inputAnswer.addEventListener("keyup", () =>
+  checkFunction(Number(inputAnswer.value))
+);
 
-btnTimer.addEventListener("click", timerFunction);
-
-checkboxAutoSubmit.addEventListener("change", () => {
-  if (checkboxAutoSubmit.checked) {
-    btnCheck.style.display = "none";
-    rightBoard.style.display = "none";
-    wrongBoard.style.display = "none";
-  } else {
-    btnCheck.style.display = "inline-block";
-    rightBoard.style.display = "inline-block";
-    wrongBoard.style.display = "inline-block";
-    displayRandomNumbers();
-    wrong = 0;
-    right = 0;
-    rightBoard.textContent = `✅ ${right}`;
-    wrongBoard.textContent = `🚫 ${wrong}`;
-  }
+selectOperator.addEventListener("change", () => {
+  operatorChange();
+  displayRandomNumbers();
 });
 
-checkboxMixedCalculation.addEventListener("change", () => {
-  if (checkboxMixedCalculation.checked) {
-    inputLowerFirst.style.display = "none";
-    inputUpperFirst.style.display = "none";
-    inputLowerSecond.style.display = "none";
-    inputUpperSecond.style.display = "none";
-  } else {
-    inputLowerFirst.style.display = "inline-block";
-    inputUpperFirst.style.display = "inline-block";
-    inputLowerSecond.style.display = "inline-block";
-    inputUpperSecond.style.display = "inline-block";
+btnAddition.addEventListener("click", () => bottomNavBarButtonPressed("+"));
+btnSubtraction.addEventListener("click", () => bottomNavBarButtonPressed("-"));
+btnMultiplication.addEventListener("click", () =>
+  bottomNavBarButtonPressed("*")
+);
+btnDivide.addEventListener("click", () => bottomNavBarButtonPressed("/"));
+
+window.onclick = function (event) {
+  if (event.target == modalWindow) {
+    modalWindow.style.display = "none";
   }
+};
+btnCancel.addEventListener("click", () => {
+  operator = selectOperator.value;
+  operatorChange();
+  displayRandomNumbers();
+  hideAllModalWindows();
+});
+
+learnTableDivideCheckbox.addEventListener("change", function () {
+  learnTable(this.checked ? Number(learnTableDivideNumber.value) : null);
+});
+learnTableMultiplicationCheckbox.addEventListener("change", function () {
+  learnTable(
+    this.checked ? Number(learnTableMultiplicationNumber.value) : null
+  );
 });
 
 /* 
@@ -337,6 +341,13 @@ step 13: hide set limits button while timer running // skipped
 step 14: adding limits for all the operations
 step 15: displaying summary below grid
 step 16: mixed calculations
-second last: menu......
+*/
+
+/* marc 3 <preprations------------------->
+step 01: make bottom nav bar with buttons addition subtraction multiplication divide more
+step 02: make modal window and show it when the bottom navbar buttons are pressed
+step 03: make separate modal window for every operation ???
+step 04: bottom navigation bar is greyed out when the modal window is opened________ fix it...
+step 05: addition bottom navbar button modal window and its normal functions
 last step: animations
 */
