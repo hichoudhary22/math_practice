@@ -50,45 +50,62 @@
       <button class="btn btn-more">...</button>
     </div>
     <div class="modal-window">
-      <div class="modal-window-content">
-        <p class="specific-content"></p>
-        <div class="save-or-cancel">
-          <button class="save-limits-data">save</button>
+      <div class="modal-window-content-all-data">
+        <div class="modal-window-content">
           <span class="hide-modal-window">&times;</span>
+          <ul>
+            <li>
+              First Number ranges from :
+              <input type="number" class="limits lower-first" /> to :
+              <input type="number" class="limits upper-first" />
+            </li>
+            <li>
+              Second Number ranges from :
+              <input type="number" class="limits lower-second" /> to :
+              <input type="number" class="limits upper-second" />
+            </li>
+          </ul>
         </div>
-        <ul>
-          <li>
-            First Number ranges from :
-            <input type="number" class="limits lower-first" /> to :
-            <input type="number" class="limits upper-first" />
-          </li>
-          <li>
-            Second Number ranges from :
-            <input type="number" class="limits lower-second" /> to :
-            <input type="number" class="limits upper-second" />
-          </li>
-        </ul>
-      </div>
-      <div class="modal-window-content-additionData">
-        <label for="addition-continious-operations"
-          >continious addition problems???</label
-        >
-        <input type="checkbox" class="continious-addition-problems" />
-      </div>
-      <div class="modal-window-content-subtractionData"></div>
-      <div class="modal-window-content-multiplicationData">
-        <label for="learn-table-multiplication">learn a table</label>
-        <input type="number" class="learn-table-multiplication-number" />
-        <input type="checkbox" class="learn-table-multiplication-checkbox" />
-      </div>
-      <div class="modal-window-content-divideData">
-        <label for="learn-table-divide">learn a table</label>
-        <input type="number" class="learn-table-divide-number" />
-        <input type="checkbox" class="learn-table-divide-checkbox" />
-      </div>
-      <div class="modal-window-content-more">
-        <!-- <label for="mixed-calcultaion"> mixed-calcultaion </label>
-        <input type="checkbox" class="mixed-calculation" /> -->
+        <div class="modal-window-content-additionData">
+          <label for="addition-continious-operations">continious add?</label>
+          <input
+            type="checkbox"
+            class="continious-addition-problems-checkbox"
+          />
+          <div><button class="btn btn-addition-save-data">Save</button></div>
+        </div>
+        <div class="modal-window-content-subtractionData">
+          <div><button class="btn btn-subtraction-save-data">Save</button></div>
+        </div>
+        <div class="modal-window-content-multiplicationData">
+          <label for="learn-table-multiplication">learn a table</label>
+          <input
+            type="number"
+            class="learn-table-multiplication-number"
+            value=""
+            disabled
+          />
+          <input type="checkbox" class="learn-table-multiplication-checkbox" />
+          <div>
+            <button class="btn btn-multiplication-save-data">Save</button>
+          </div>
+        </div>
+        <div class="modal-window-content-divideData">
+          <label for="learn-table-divide">learn a table</label>
+          <input
+            type="number"
+            class="learn-table-divide-number"
+            value=""
+            disabled
+          />
+          <input type="checkbox" class="learn-table-divide-checkbox" />
+          <div><button class="btn btn-divide-save-data">Save</button></div>
+        </div>
+        <div class="modal-window-content-more">
+          <label for="mixed-calcultaion"> mixed-calcultaion </label>
+          <input type="checkbox" class="mixed-calculation-checkbox" />
+          <div><button class="btn btn-more-save-data">Done</button></div>
+        </div>
       </div>
     </div>
     <script src="script.js"></script>
