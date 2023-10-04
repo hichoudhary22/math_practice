@@ -14,6 +14,9 @@ body {
 .timer-section {
   display: flex;
 }
+input {
+  text-align: right;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -71,10 +74,11 @@ input::-webkit-inner-spin-button {
 .lower-first,
 .upper-first,
 .lower-second,
-.upper-second {
+.upper-second,
+.learn-table-multiplication-number,
+.learn-table-divide-number {
   width: 2.5rem;
   font-size: 1.5rem;
-  display: inline-flex;
 }
 .bottom-nav-bar {
   /* overflow: hidden; */
@@ -97,6 +101,10 @@ input::-webkit-inner-spin-button {
   line-height: 0;
   margin: 2px 6px;
 }
+.hide-modal-window {
+  font-size: 3rem;
+  font-weight: bold;
+}
 .modal-window {
   display: none;
   position: fixed;
@@ -105,7 +113,6 @@ input::-webkit-inner-spin-button {
   left: 0;
   top: 0;
   z-index: 1;
-
   overflow: auto;
   width: 100%;
   height: 100%;
@@ -114,12 +121,13 @@ input::-webkit-inner-spin-button {
 
 .modal-window-content-all-data {
   padding: 0.5rem;
-  width: 100%;
+  width: 96.6%;
   height: fit-content;
   background-color: white;
   line-height: 3rem;
   border: 2px solid black;
   font-size: 1.5rem;
+  border-radius: 0.5cm 0.5cm 0 0;
 }
 
 .btn-save {
@@ -129,4 +137,9 @@ input::-webkit-inner-spin-button {
 .save-btn-holder-div {
   display: flex;
   justify-content: center;
+}
+
+input[type="checkbox"] {
+  width: 25px;
+  height: 25px;
 }
