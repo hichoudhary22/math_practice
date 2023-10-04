@@ -220,7 +220,8 @@ function displayData() {
 }
 
 function bottomNavBarButtonPressed(newOperator) {
-  hideAllModalWindows();
+  // hideAllModalWindows();
+  modalWindow.style.animation = "slideInBottom 500ms";
   resetCheckboxesAndAppBooleans();
   inputFirstNumber.value = inputSecondNumber.value = "";
   inputAnswer.disabled = true;
@@ -258,7 +259,8 @@ function saveAppRangeDataToLocalStorage() {
 }
 
 function cancelButtonTasks(passedOperator) {
-  hideAllModalWindows();
+  modalWindow.style.animation = "slideOutBottom 500ms";
+  setTimeout(hideAllModalWindows, 500);
   inputAnswer.disabled = false;
   passedOperator
     ? (selectOperator.value = operator = passedOperator)
@@ -295,9 +297,10 @@ btnMultiplication.addEventListener("click", () =>
 );
 btnDivide.addEventListener("click", () => bottomNavBarButtonPressed("/"));
 btnMore.addEventListener("click", () => {
-  hideAllModalWindows();
+  // hideAllModalWindows();
+  modalWindow.style.animation = "slideInBottom 500ms";
   modalWindow.style.display = "flex";
-  modalWindowContent.style.display = "block";
+  modalWindowContent.style.display = "none";
   modalWindowContentMoreData.style.display = "block";
   mixedCalculationCheckbox.checked = false;
   inputFirstNumber.value = inputSecondNumber.value = "";
