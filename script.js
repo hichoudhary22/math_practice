@@ -2,12 +2,15 @@
 
 // required dom elements:------------------>
 
-//top nav bar items---------------------->
+//timer items---------------------->
 const inputTimer = document.querySelector(".input-timer");
 const btnTimer = document.querySelector(".btn-timer");
 
 // message section---------------------->
 const right_or_wrong = document.querySelector(".right-or-wrong");
+const btnRedLightGreenLight = document.querySelector(
+  ".btn-red-light-green-light"
+);
 const output = document.querySelector(".output");
 
 //main section items----------------------->
@@ -83,13 +86,20 @@ const btnMultiplicationSaveData = document.querySelector(
 const btnDivideSaveData = document.querySelector(".btn-divide-save-data");
 const btnMoreSaveData = document.querySelector(".btn-more-save-data");
 
+// summary modal windows-------------------------------->
+const summaryModalWindow = document.querySelector(".modal-window-summary");
+const btnCloseSummaryModalWindows = document.querySelector(
+  ".close-summary-modal-window"
+);
+const summaryBoard = document.querySelector(".summary-board");
+
 // global variables to use in app-------------------->
 let appRangeData = {
   lowerFirst: 10,
   upperFirst: 20,
   lowerSecond: 10,
   upperSecond: 20,
-  timer: 6,
+  timer: 60,
 };
 
 let x,
@@ -97,6 +107,9 @@ let x,
   operator = "+",
   timerRunning,
   timerSeconds,
+  totalNumberOfOperations = 0,
+  keysPressed = 0,
+  totalDigits = 0,
   dataType = "additionData",
   result,
   continious_addition_problems = false,
@@ -104,9 +117,10 @@ let x,
 
 // code starts here---------------->
 
-// setting up the stage when the very first time application loads
+// setting up the stage when the first time webpage loads
 readData();
 displayRandomNumbers();
+inputTimer.value = appRangeData.timer;
 
 function readData() {
   if (localStorage.getItem(`${dataType}`)) {
@@ -156,17 +170,23 @@ function calculateAnswer() {
     default:
       console.log("error in operator division of calculateAnswer");
   }
+  totalDigits += String(result).length;
 }
 
 function checkUserInput(userInput) {
   if (userInput === result) {
     inputAnswer.value = "";
     right_or_wrong.textContent = "right!!!!!";
+    btnRedLightGreenLight.style.animation =
+      "bouncing-green ease-in 1000ms forwards";
     output.textContent = `${x} ${operator} ${y} = ${result}`;
+    totalNumberOfOperations++;
     mixedCalculation ? randomOperatorGenerator() : displayRandomNumbers();
   } else {
     output.textContent = "";
     right_or_wrong.textContent = "not there yet!!! keep trying...";
+    btnRedLightGreenLight.style.animation =
+      "bouncing-red ease-in 2000ms infinite";
   }
 }
 
@@ -278,11 +298,16 @@ function resetCheckboxesAndAppBooleans() {
       false;
 }
 
+function closeSummaryModalWindow() {
+  summaryModalWindow.style.display = "none";
+}
+
 // giving javascript power to modify contents of the page---------------------------->
 
-inputAnswer.addEventListener("keyup", () =>
-  checkUserInput(Number(inputAnswer.value))
-);
+inputAnswer.addEventListener("keyup", () => {
+  checkUserInput(Number(inputAnswer.value));
+  keysPressed++;
+});
 
 selectOperator.addEventListener("change", () => {
   modifyDataType();
@@ -309,6 +334,7 @@ btnMore.addEventListener("click", () => {
 
 window.onclick = function (event) {
   if (event.target == modalWindow) cancelButtonTasks(selectOperator.value);
+  if (event.target == summaryModalWindow) closeSummaryModalWindow();
 };
 
 btnCancel.addEventListener("click", () => {
@@ -420,6 +446,40 @@ btnMoreSaveData.addEventListener("click", () => {
   mixedCalculation = mixedCalculationCheckbox.checked ? true : false;
   cancelButtonTasks();
 });
+
+btnTimer.addEventListener("click", () => {
+  if (timerRunning) {
+    // timer was running and now will stop the timer
+    clearInterval(timerRunning);
+    inputTimer.value = appRangeData.timer;
+    console.log("inside here");
+    timerRunning = null;
+  } else {
+    // timer was stopped....
+    // starting the timer----->
+
+    timerSeconds = appRangeData.timer = Number(inputTimer.value);
+    timerRunning = setInterval(() => {
+      inputTimer.value = --timerSeconds;
+      if (timerSeconds === 0) {
+        let efficiency =
+          totalNumberOfOperations === 0 ? 0 : (totalDigits / keysPressed) * 100;
+        summaryModalWindow.style.display = "flex";
+        summaryBoard.innerHTML = `<p>total number of operations : ${totalNumberOfOperations}</p>
+                                  <p>time taken per operation : ${Number(
+                                    totalNumberOfOperations / appRangeData.timer
+                                  ).toFixed(2)} sec</p>
+                                  <p>efficiency : ${efficiency}</p>`;
+        totalDigits = totalNumberOfOperations = keysPressed = 0;
+      } else if (timerSeconds === -1) {
+        clearInterval(timerRunning);
+        timerRunning = null;
+        inputTimer.value = appRangeData.timer;
+      }
+    }, 1000);
+  }
+});
+btnCloseSummaryModalWindows.addEventListener("click", closeSummaryModalWindow);
 /* 
 step 01: check if limits are already inserted in the web storage if available update variable
 step 02: if not use default limits from js script and set it to DOM
@@ -440,10 +500,28 @@ step 16: mixed calculations
 */
 
 /* marc 3 <preprations------------------->
-step 01: make bottom nav bar with buttons addition subtraction multiplication divide more
-step 02: make modal window and show it when the bottom navbar buttons are pressed
-step 03: make separate modal window for every operation ???
-step 04: bottom navigation bar is greyed out when the modal window is opened________ fix it...
-step 05: addition bottom navbar button modal window and its normal functions
-last step: animations
+✅ step 01: make bottom nav bar with buttons addition subtraction multiplication divide more
+✅ step 02: make modal window and show it when the bottom navbar buttons are pressed
+✅ step 03: make separate modal window for every operation
+✅ step 04: bottom navigation bar is greyed out when the modal window is opened________ fix it...
+✅ step 05: addition bottom navbar button modal window and its normal functions
+________________________________________
+
+✅ step 06: message board animations
+step 07: color pallet
+step 08: change icon according to color pallet
+step 09: option for dark mode
+step 10: time bound operations
+✅ a. creating timer
+  b. when timer stops displaying modal showing number of operations completed in given timer time and operation per second and efficiency
+
+✅ last step: animations
+
+
+errors to be fixed
+when summary window appears background is still active 
+start timer does not focus to answer field
+esc does not hide summary
+efficiency is comming out wrong
+tiemr data is not being updated in the app data
 */

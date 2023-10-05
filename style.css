@@ -10,6 +10,8 @@ body {
 .nav-bar {
   display: flex;
   justify-content: space-between;
+  border-bottom: 2px solid black;
+  padding: 3px;
 }
 .timer-section {
   display: flex;
@@ -22,7 +24,38 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 .message-board {
-  height: 50px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  align-items: center;
+}
+.btn-red-light-green-light {
+  border: none;
+  /* display: none; */
+  background-color: rgba(0, 0, 0, 0);
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+@keyframes bouncing-red {
+  0% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 1);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+}
+@keyframes bouncing-green {
+  0% {
+    background-color: rgba(0, 255, 0, 0);
+  }
+  100% {
+    background-color: rgba(0, 255, 0, 1);
+  }
 }
 .main {
   display: grid;
@@ -87,8 +120,9 @@ input::-webkit-inner-spin-button {
   width: 95%;
   display: flex;
   justify-content: space-evenly;
-  border-top: 2px solid grey;
+  border-top: 2px solid black;
   margin: 8px;
+  padding: 3px;
 }
 .bottom-nav-bar button {
   font-size: 2rem;
@@ -134,11 +168,11 @@ input::-webkit-inner-spin-button {
 }
 .modal-window-content-all-data {
   padding: 0.5rem;
-  width: 96.6%;
+  width: 97%;
   height: fit-content;
   background-color: white;
   line-height: 3rem;
-  border: 2px solid black;
+  border-top: 2px solid black;
   font-size: 1.5rem;
   border-radius: 0.5cm 0.5cm 0 0;
 }
@@ -162,4 +196,26 @@ input::-webkit-inner-spin-button {
 input[type="checkbox"] {
   width: 25px;
   height: 25px;
+}
+.modal-window-summary {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.modal-window-summary-content {
+  background-color: white;
+  margin: 50px;
+  padding: 10px 25px 25px 25px;
+  font-size: 2rem;
+  border-radius: 0.5cm;
+}
+.close-summary-modal-window {
+  font-size: 2.5rem;
+  font-weight: bold;
 }
