@@ -18,7 +18,12 @@
       </div>
       <div class="timer-section">
         <label for="timer">Timer</label>
-        <input type="number" class="input-timer" name="timer" />
+        <input
+          type="number"
+          class="input-timer"
+          name="timer"
+          onfocus="this.value=''"
+        />
         <button class="btn btn-timer">Start</button>
       </div>
     </div>
@@ -39,7 +44,12 @@
           <option value="/">&divide;</option>
         </select>
         <input type="number" class="second-number" disabled />
-        <input type="number" class="answer" placeholder="ans" />
+        <input
+          type="number"
+          class="answer"
+          placeholder="ans"
+          onfocus="this.value=''"
+        />
       </div>
     </div>
 
@@ -57,13 +67,31 @@
           <ul>
             <li>
               First Number ranges from :
-              <input type="number" class="limits lower-first" /> to :
-              <input type="number" class="limits upper-first" />
+              <input
+                type="number"
+                class="limits lower-first"
+                onfocus="this.value=''"
+              />
+              to :
+              <input
+                type="number"
+                class="limits upper-first"
+                onfocus="this.value=''"
+              />
             </li>
             <li>
               Second Number ranges from :
-              <input type="number" class="limits lower-second" /> to :
-              <input type="number" class="limits upper-second" />
+              <input
+                type="number"
+                class="limits lower-second"
+                onfocus="this.value=''"
+              />
+              to :
+              <input
+                type="number"
+                class="limits upper-second"
+                onfocus="this.value=''"
+              />
             </li>
           </ul>
         </div>
@@ -89,6 +117,7 @@
             class="learn-table-multiplication-number"
             value=""
             disabled
+            onfocus="this.value=''"
           />
           <input type="checkbox" class="learn-table-multiplication-checkbox" />
           <div class="save-btn-holder-div">
@@ -102,6 +131,7 @@
             class="learn-table-divide-number"
             value=""
             disabled
+            onfocus="this.value=''"
           />
           <input type="checkbox" class="learn-table-divide-checkbox" />
           <div class="save-btn-holder-div">
