@@ -99,7 +99,6 @@ let appRangeData = {
   upperFirst: 20,
   lowerSecond: 10,
   upperSecond: 20,
-  timer: 60,
 };
 
 let x,
@@ -120,7 +119,7 @@ let x,
 // setting up the stage when the first time webpage loads
 readData();
 displayRandomNumbers();
-inputTimer.value = appRangeData.timer;
+inputTimer.value = localStorage.timer ? localStorage.timer : 6;
 
 function readData() {
   if (localStorage.getItem(`${dataType}`)) {
@@ -170,7 +169,6 @@ function calculateAnswer() {
     default:
       console.log("error in operator division of calculateAnswer");
   }
-  totalDigits += String(result).length;
 }
 
 function checkUserInput(userInput) {
@@ -181,6 +179,7 @@ function checkUserInput(userInput) {
       "bouncing-green ease-in 1000ms forwards";
     output.textContent = `${x} ${operator} ${y} = ${result}`;
     totalNumberOfOperations++;
+    totalDigits += String(result).length;
     mixedCalculation ? randomOperatorGenerator() : displayRandomNumbers();
   } else {
     output.textContent = "";
@@ -281,10 +280,10 @@ function saveAppRangeDataToLocalStorage() {
 function cancelButtonTasks(passedOperator) {
   modalWindow.style.animation = "slideOutBottom 500ms";
   setTimeout(hideAllModalWindows, 500);
-  inputAnswer.disabled = false;
   passedOperator
     ? (selectOperator.value = operator = passedOperator)
     : randomOperatorGenerator();
+  inputAnswer.disabled = false;
   modifyDataType();
   displayRandomNumbers();
 }
@@ -300,13 +299,17 @@ function resetCheckboxesAndAppBooleans() {
 
 function closeSummaryModalWindow() {
   summaryModalWindow.style.display = "none";
+  inputAnswer.disabled = false;
+  displayRandomNumbers();
+  output.textContent = "";
+  inputAnswer.textContent = "";
 }
 
 // giving javascript power to modify contents of the page---------------------------->
 
 inputAnswer.addEventListener("keyup", () => {
-  checkUserInput(Number(inputAnswer.value));
   keysPressed++;
+  checkUserInput(Number(inputAnswer.value));
 });
 
 selectOperator.addEventListener("change", () => {
@@ -451,30 +454,51 @@ btnTimer.addEventListener("click", () => {
   if (timerRunning) {
     // timer was running and now will stop the timer
     clearInterval(timerRunning);
-    inputTimer.value = appRangeData.timer;
+    inputTimer.value = localStorage.timer;
     console.log("inside here");
     timerRunning = null;
   } else {
     // timer was stopped....
     // starting the timer----->
 
-    timerSeconds = appRangeData.timer = Number(inputTimer.value);
+    //resetting summary variables
+    totalDigits = totalNumberOfOperations = keysPressed = 0;
+
+    inputAnswer.focus();
+    displayRandomNumbers();
+    timerSeconds = localStorage.timer = Number(inputTimer.value);
+
+    // checking the timer seconds....
     timerRunning = setInterval(() => {
       inputTimer.value = --timerSeconds;
       if (timerSeconds === 0) {
-        let efficiency =
-          totalNumberOfOperations === 0 ? 0 : (totalDigits / keysPressed) * 100;
+        let efficiency, timeTakenPerOperation;
+        if (totalNumberOfOperations === 0) {
+          efficiency = 0;
+          timeTakenPerOperation = "null";
+        } else {
+          efficiency = Number((totalDigits / keysPressed) * 100).toFixed(2);
+          timeTakenPerOperation = `${Number(
+            localStorage.timer / totalNumberOfOperations
+          ).toFixed(2)} sec/calc`;
+        }
+
+        // setting question panel and message board empty
+        inputFirstNumber.value = inputSecondNumber.value = "";
+        inputAnswer.disabled = true;
+        right_or_wrong.textContent = "";
+        btnRedLightGreenLight.style.animation = "bouncing-red ease-in 500ms 4";
+
+        // showing summary modal window
         summaryModalWindow.style.display = "flex";
-        summaryBoard.innerHTML = `<p>total number of operations : ${totalNumberOfOperations}</p>
-                                  <p>time taken per operation : ${Number(
-                                    totalNumberOfOperations / appRangeData.timer
-                                  ).toFixed(2)} sec</p>
-                                  <p>efficiency : ${efficiency}</p>`;
-        totalDigits = totalNumberOfOperations = keysPressed = 0;
+        summaryBoard.innerHTML = `<p>Total Time : ${localStorage.timer} sec</p><hr>
+                                  <p>${totalNumberOfOperations} calculations in total</p><hr>
+                                  <p>Took ${timeTakenPerOperation}</p><hr>
+                                  <p>Efficiency : ${efficiency}</p>`;
       } else if (timerSeconds === -1) {
         clearInterval(timerRunning);
         timerRunning = null;
-        inputTimer.value = appRangeData.timer;
+        inputTimer.value = localStorage.timer;
       }
     }, 1000);
   }
