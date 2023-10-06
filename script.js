@@ -535,17 +535,9 @@ ________________________________________
 step 07: color pallet
 step 08: change icon according to color pallet
 step 09: option for dark mode
-step 10: time bound operations
+✅ step 10: time bound operations
 ✅ a. creating timer
-  b. when timer stops displaying modal showing number of operations completed in given timer time and operation per second and efficiency
+✅ b. when timer stops displaying modal showing number of operations completed in given timer time and operation per second and efficiency
 
 ✅ last step: animations
-
-
-errors to be fixed
-when summary window appears background is still active 
-start timer does not focus to answer field
-esc does not hide summary
-efficiency is comming out wrong
-tiemr data is not being updated in the app data
 */
