@@ -64,6 +64,7 @@ input::-webkit-inner-spin-button {
   font-size: 2rem;
   align-items: center;
   background-color: var(--card-bkg-color);
+  margin-top: 8px;
 }
 .btn-red-light-green-light {
   border: none;
@@ -95,16 +96,13 @@ input::-webkit-inner-spin-button {
 .main {
   display: grid;
   grid-template:
-    " . . first-number ."
-    ". select-operator second-number ."
-    ". answer answer ." auto / minmax(2rem, 1fr) minmax(2rem, 1fr) minmax(
-      2rem,
-      2.5fr
-    )
-    minmax(2rem, 1fr);
+    " . first-number"
+    " select-operator second-number"
+    " answer answer" auto / minmax(2rem, 0.5fr) minmax(2rem, 1fr);
   gap: 0.5rem;
   padding: 0.5rem;
   background-color: var(--card-bkg-color);
+  margin-top: 8px;
 }
 .first-number {
   grid-area: first-number;
