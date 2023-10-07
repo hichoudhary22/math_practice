@@ -1,17 +1,38 @@
 * {
   padding: 0;
   margin: 0;
+  --body-bkg-color: white;
+  --text-color: black;
+  --border-color: black;
+  --primary-color: green;
+  --modal-bkg-color: white;
+  --input-bkg-color: ;
+}
+@media (prefers-color-scheme: dark) {
+  * {
+    --body-bkg-color: rgb(36, 46, 65);
+    --card-bkg-color: rgb(46, 59, 82);
+    --text-color: white;
+    --border-color: white;
+    --modal-bkg-color: rgb(46, 59, 82);
+    --input-bkg-color: rgb(32, 41, 59);
+    --btn-bkg-color: rgb(39, 38, 67);
+  }
 }
 body {
-  background-color: white;
-  color: black;
+  background-color: var(--body-bkg-color);
+  color: var(--text-color);
   margin: 8px;
+}
+button {
+  background-color: var(--btn-bkg-color);
+  color: var(--text-color);
 }
 .nav-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--border-color);
 }
 .timer-section {
   display: flex;
@@ -42,29 +63,30 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   font-size: 2rem;
   align-items: center;
+  background-color: var(--card-bkg-color);
 }
 .btn-red-light-green-light {
   border: none;
   /* display: none; */
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   height: 30px;
   width: 30px;
   border-radius: 50%;
 }
 @keyframes bouncing-red {
   0% {
-    background-color: rgba(255, 0, 0, 0);
+    background-color: transparent;
   }
   50% {
     background-color: rgba(255, 0, 0, 1);
   }
   100% {
-    background-color: rgba(255, 0, 0, 0);
+    background-color: transparent;
   }
 }
 @keyframes bouncing-green {
   0% {
-    background-color: rgba(0, 255, 0, 0);
+    background-color: transparent;
   }
   100% {
     background-color: rgba(0, 255, 0, 1);
@@ -82,16 +104,20 @@ input::-webkit-inner-spin-button {
     minmax(2rem, 1fr);
   gap: 0.5rem;
   padding: 0.5rem;
+  background-color: var(--card-bkg-color);
 }
 .first-number {
   grid-area: first-number;
   font-size: 2rem;
+  background-color: var(--body-bkg-color);
+  color: var(--text-color);
+  border-color: transparent;
 }
 .select-operator {
   grid-area: select-operator;
   border: none;
-  color: green;
-  background-color: rgba(255, 255, 255, 0);
+  color: var(--primary-color);
+  background-color: transparent;
   text-align: center;
   appearance: none;
   font-size: 2rem;
@@ -102,16 +128,21 @@ input::-webkit-inner-spin-button {
 .second-number {
   grid-area: second-number;
   font-size: 2rem;
+  background-color: var(--body-bkg-color);
+  color: var(--text-color);
+  border-color: transparent;
 }
 .answer {
   grid-area: answer;
   font-size: 3rem;
   border-width: 2px 0;
-  border-color: black;
+  border-color: var(--border-color);
+  background-color: var(--input-bkg-color);
+  color: var(--text-color);
 }
 .answer:focus {
   border-width: 2px 0;
-  border-color: black;
+  border-color: var(--border-color);
   outline: none;
 }
 .answer:focus::placeholder {
@@ -133,7 +164,7 @@ input::-webkit-inner-spin-button {
   width: 95%;
   display: flex;
   justify-content: space-evenly;
-  border-top: 2px solid black;
+  border-top: 2px solid var(--border-color);
   margin: 8px;
   padding: 3px;
 }
@@ -183,9 +214,9 @@ input::-webkit-inner-spin-button {
   padding: 0.5rem;
   width: 97%;
   height: fit-content;
-  background-color: white;
+  background-color: var(--body-bkg-color);
   line-height: 3rem;
-  border-top: 2px solid black;
+  border-top: 2px solid var(--border-color);
   font-size: 1.5rem;
   border-radius: 0.5cm 0.5cm 0 0;
 }
@@ -219,10 +250,10 @@ input[type="checkbox"] {
   height: 100%;
   flex-direction: column;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--modal-bkg-color);
 }
 .modal-window-summary-content {
-  background-color: white;
+  background-color: var(--body-bkg-color);
   margin: 50px;
   padding: 10px 25px 25px 25px;
   font-size: 2rem;
