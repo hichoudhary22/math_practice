@@ -266,14 +266,15 @@ input[type="checkbox"] {
 .numeric-pad {
   display: grid;
   grid-template:
-    "one two three" 40px
-    "four five six" 40px
-    "seven eight nine" 40px
-    ". zero backspace" 40px / minmax(2rem, 0.5fr) minmax(2rem, 0.5fr) minmax(2rem, 0.5fr);
+    "one two three" 55px
+    "four five six" 55px
+    "seven eight nine" 55px
+    ". zero backspace" 55px / minmax(2rem, 0.5fr) minmax(2rem, 0.5fr) minmax(2rem, 0.5fr);
   gap: 7px;
   touch-action: manipulation;
 }
-.numeric {
+.numeric,
+.backspace {
   touch-action: manipulation;
   font-size: 1.75rem;
 }
