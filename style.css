@@ -1,12 +1,13 @@
 * {
   padding: 0;
   margin: 0;
-  --body-bkg-color: white;
+  --body-bkg-color: #fafafa;
   --text-color: black;
   --border-color: black;
   --primary-color: green;
   --modal-bkg-color: white;
   --input-bkg-color: ;
+  --card-bkg-color: white;
 }
 @media (prefers-color-scheme: dark) {
   * {
@@ -29,6 +30,7 @@ button {
   background-color: var(--btn-bkg-color);
   color: var(--text-color);
 }
+button::
 .nav-bar {
   display: flex;
   justify-content: space-between;
@@ -40,10 +42,11 @@ button {
   align-items: center;
 }
 .input-timer {
-  width: 40px;
-  height: 20px;
+  width: 80px;
+  /* height: 20px; */
   margin: 3px;
   text-align: center;
+  font-size: 1.75rem;
 }
 input {
   text-align: right;

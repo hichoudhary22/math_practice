@@ -320,7 +320,7 @@ function showSummary() {
   let efficiency, timeTakenPerOperation;
   if (totalNumberOfOperations === 0) {
     efficiency = 0;
-    timeTakenPerOperation = "-- sec";
+    timeTakenPerOperation = "-- sec/calc";
   } else {
     efficiency = Number((totalDigits / keysPressed) * 100).toFixed(2);
     timeTakenPerOperation = `${Number(
@@ -336,7 +336,7 @@ function showSummary() {
 
   // showing summary modal window
   summaryModalWindow.style.display = "flex";
-  summaryBoard.innerHTML = `<p>Total Time : ${timerSeconds} sec</p><hr>
+  summaryBoard.innerHTML = `<p>Total Time : ${toMMSS()}</p><hr>
                                   <p>${totalNumberOfOperations} calculations in total</p><hr>
                                   <p>Took ${timeTakenPerOperation}</p><hr>
                                   <p>Efficiency : ${efficiency}</p>`;
@@ -345,6 +345,14 @@ function showSummary() {
   inputTimer.value = 0;
   timerRunning = null;
   timerSeconds = 0;
+}
+
+function toMMSS() {
+  let minutes = Math.floor(timerSeconds / 60),
+    seconds = timerSeconds - minutes * 60;
+  if (minutes < 10) minutes = "0" + minutes;
+  if (seconds < 10) seconds = "0" + seconds;
+  return minutes + ":" + seconds;
 }
 
 // giving javascript power to modify contents of the page---------------------------->
@@ -503,7 +511,7 @@ for (let i = 0; i < numericPad.length; i++) {
     if (!timerRunning) {
       timerRunning = setInterval(() => {
         ++timerSeconds;
-        inputTimer.value = timerSeconds;
+        inputTimer.value = toMMSS();
       }, 1000);
     }
   });
