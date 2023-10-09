@@ -4,9 +4,9 @@
 
 //timer items---------------------->
 const inputTimer = document.querySelector(".input-timer");
-const btnTimer = document.querySelector(".btn-timer");
 
 // message section---------------------->
+const totalCalculations = document.querySelector(".total-calculations");
 const right_or_wrong = document.querySelector(".right-or-wrong");
 const btnRedLightGreenLight = document.querySelector(
   ".btn-red-light-green-light"
@@ -96,6 +96,7 @@ const summaryBoard = document.querySelector(".summary-board");
 // numeric pad------------------------>
 const numericPad = document.querySelectorAll(".numeric");
 const backspace = document.querySelector(".backspace");
+const submitBtn = document.querySelector(".submit");
 
 // global variables to use in app-------------------->
 let appRangeData = {
@@ -109,7 +110,7 @@ let x,
   y,
   operator = "+",
   timerRunning,
-  timerSeconds,
+  timerSeconds = 0,
   totalNumberOfOperations = 0,
   keysPressed = 0,
   totalDigits = 0,
@@ -124,7 +125,6 @@ let x,
 // setting up the stage when the first time webpage loads
 readData();
 displayRandomNumbers();
-inputTimer.value = localStorage.timer ? localStorage.timer : 6;
 
 function readData() {
   if (localStorage.getItem(`${dataType}`)) {
@@ -184,12 +184,14 @@ function checkUserInput(userInput) {
       "bouncing-green ease-in 1000ms forwards";
     output.textContent = `${x} ${operator} ${y} = ${result}`;
     totalNumberOfOperations++;
+    totalCalculations.textContent =
+      "Total Calculations : " + totalNumberOfOperations;
     totalDigits += String(result).length;
     userInputString = "";
     mixedCalculation ? randomOperatorGenerator() : displayRandomNumbers();
   } else {
     output.textContent = "";
-    right_or_wrong.textContent = "not there yet!!! keep trying...";
+    right_or_wrong.textContent = " keep trying...";
     btnRedLightGreenLight.style.animation =
       "bouncing-red ease-in 2000ms infinite";
   }
@@ -308,15 +310,49 @@ function closeSummaryModalWindow() {
   inputAnswer.disabled = false;
   displayRandomNumbers();
   output.textContent = "";
-  inputAnswer.textContent = "";
+  inputAnswer.value = "";
+  totalDigits = totalNumberOfOperations = keysPressed = 0;
+  totalCalculations.textContent = "Total Calculations :";
+  userInputString = "";
+}
+
+function showSummary() {
+  let efficiency, timeTakenPerOperation;
+  if (totalNumberOfOperations === 0) {
+    efficiency = 0;
+    timeTakenPerOperation = "-- sec";
+  } else {
+    efficiency = Number((totalDigits / keysPressed) * 100).toFixed(2);
+    timeTakenPerOperation = `${Number(
+      timerSeconds / totalNumberOfOperations
+    ).toFixed(2)} sec/calc`;
+  }
+
+  // setting question panel and message board empty
+  inputFirstNumber.value = inputSecondNumber.value = "";
+  inputAnswer.disabled = true;
+  right_or_wrong.textContent = "";
+  btnRedLightGreenLight.style.animation = "bouncing-red ease-in 500ms 4";
+
+  // showing summary modal window
+  summaryModalWindow.style.display = "flex";
+  summaryBoard.innerHTML = `<p>Total Time : ${timerSeconds} sec</p><hr>
+                                  <p>${totalNumberOfOperations} calculations in total</p><hr>
+                                  <p>Took ${timeTakenPerOperation}</p><hr>
+                                  <p>Efficiency : ${efficiency}</p>`;
+
+  clearInterval(timerRunning);
+  inputTimer.value = 0;
+  timerRunning = null;
+  timerSeconds = 0;
 }
 
 // giving javascript power to modify contents of the page---------------------------->
 
-inputAnswer.addEventListener("keyup", () => {
-  keysPressed++;
-  checkUserInput(Number(inputAnswer.value));
-});
+// inputAnswer.addEventListener("keyup", () => {
+//   keysPressed++;
+//   checkUserInput(Number(inputAnswer.value));
+// });
 
 selectOperator.addEventListener("change", () => {
   modifyDataType();
@@ -456,75 +492,29 @@ btnMoreSaveData.addEventListener("click", () => {
   cancelButtonTasks();
 });
 
-btnTimer.addEventListener("click", () => {
-  if (timerRunning) {
-    // timer was running and now will stop the timer
-    clearInterval(timerRunning);
-    inputTimer.value = localStorage.timer;
-    console.log("inside here");
-    timerRunning = null;
-  } else {
-    // timer was stopped....
-    // starting the timer----->
-
-    //resetting summary variables
-    totalDigits = totalNumberOfOperations = keysPressed = 0;
-
-    inputAnswer.focus();
-    displayRandomNumbers();
-    timerSeconds = localStorage.timer = Number(inputTimer.value);
-
-    // checking the timer seconds....
-    timerRunning = setInterval(() => {
-      inputTimer.value = --timerSeconds;
-      if (timerSeconds === 0) {
-        let efficiency, timeTakenPerOperation;
-        if (totalNumberOfOperations === 0) {
-          efficiency = 0;
-          timeTakenPerOperation = "null";
-        } else {
-          efficiency = Number((totalDigits / keysPressed) * 100).toFixed(2);
-          timeTakenPerOperation = `${Number(
-            localStorage.timer / totalNumberOfOperations
-          ).toFixed(2)} sec/calc`;
-        }
-
-        // setting question panel and message board empty
-        inputFirstNumber.value = inputSecondNumber.value = "";
-        inputAnswer.disabled = true;
-        right_or_wrong.textContent = "";
-        btnRedLightGreenLight.style.animation = "bouncing-red ease-in 500ms 4";
-
-        // showing summary modal window
-        summaryModalWindow.style.display = "flex";
-        summaryBoard.innerHTML = `<p>Total Time : ${localStorage.timer} sec</p><hr>
-                                  <p>${totalNumberOfOperations} calculations in total</p><hr>
-                                  <p>Took ${timeTakenPerOperation}</p><hr>
-                                  <p>Efficiency : ${efficiency}</p>`;
-      } else if (timerSeconds === -1) {
-        clearInterval(timerRunning);
-        timerRunning = null;
-        inputTimer.value = localStorage.timer;
-      }
-    }, 1000);
-  }
-});
 btnCloseSummaryModalWindows.addEventListener("click", closeSummaryModalWindow);
 
 for (let i = 0; i < numericPad.length; i++) {
   numericPad[i].addEventListener("click", function () {
     userInputString += this.textContent;
     inputAnswer.value = userInputString;
-    console.log(userInputString);
     checkUserInput(Number(userInputString));
+    keysPressed++;
+    if (!timerRunning) {
+      timerRunning = setInterval(() => {
+        ++timerSeconds;
+        inputTimer.value = timerSeconds;
+      }, 1000);
+    }
   });
 }
 backspace.addEventListener("click", function () {
   userInputString = userInputString.slice(0, -1);
-  console.log(userInputString);
   inputAnswer.value = userInputString;
   checkUserInput(Number(userInputString));
 });
+
+submitBtn.addEventListener("click", showSummary);
 /* 
 step 01: check if limits are already inserted in the web storage if available update variable
 step 02: if not use default limits from js script and set it to DOM

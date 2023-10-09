@@ -17,21 +17,24 @@
         />
       </div>
       <div class="timer-section">
-        <label for="timer">Time</label>
+        <label for="timer">Time Taken : </label>
         <input
           type="number"
           class="input-timer"
           name="timer"
-          onfocus="this.value=''"
+          disabled
+          value="0"
         />
-        <button class="btn btn-timer">Start</button>
       </div>
     </div>
     <div class="app-body">
       <!-- message board -->
       <div class="message-board">
-        <p class="right-or-wrong"></p>
-        <button class="btn-red-light-green-light"></button>
+        <p class="total-calculations">Total Calculations :</p>
+        <div class="right-or-wrong-board">
+          <button class="btn-red-light-green-light"></button>
+          <p class="right-or-wrong"></p>
+        </div>
         <p class="output"></p>
       </div>
       <!-- main section -->
@@ -170,6 +173,7 @@
       <button class="numeric numeric-eight">8</button>
       <button class="numeric numeric-nine">9</button>
       <button class="backspace">&leftarrow;</button>
+      <button class="submit">Submit</button>
     </div>
     <script src="script.js"></script>
   </body>

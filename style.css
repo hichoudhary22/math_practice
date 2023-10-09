@@ -40,16 +40,10 @@ button {
   align-items: center;
 }
 .input-timer {
-  width: 20px;
+  width: 40px;
   height: 20px;
   margin: 3px;
   text-align: center;
-}
-.btn-timer {
-  width: 50px;
-  height: 35px;
-  margin: 3px;
-  border-radius: 0.3cm;
 }
 input {
   text-align: right;
@@ -59,21 +53,28 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 .message-board {
-  height: 100px;
+  height: 120px;
   display: flex;
   flex-direction: column;
   font-size: 2rem;
-  align-items: center;
+  align-items: left;
   background-color: var(--card-bkg-color);
   margin-top: 8px;
+  padding-left: 20px;
 }
+
 .btn-red-light-green-light {
   border: none;
   /* display: none; */
   background-color: transparent;
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
   border-radius: 50%;
+  align-self: center;
+  margin-right: 8px;
+}
+.right-or-wrong-board {
+  display: inline-flex;
 }
 @keyframes bouncing-red {
   0% {
@@ -266,10 +267,10 @@ input[type="checkbox"] {
 .numeric-pad {
   display: grid;
   grid-template:
-    "one two three" 55px
-    "four five six" 55px
-    "seven eight nine" 55px
-    ". zero backspace" 55px / minmax(2rem, 0.5fr) minmax(2rem, 0.5fr) minmax(2rem, 0.5fr);
+    "one two three" 50px
+    "four five six" 50px
+    "seven eight nine" 50px
+    "submit zero backspace" 50px / minmax(2rem, 0.5fr) minmax(2rem, 0.5fr) minmax(2rem, 0.5fr);
   gap: 7px;
   touch-action: manipulation;
 }
@@ -310,4 +311,8 @@ input[type="checkbox"] {
 }
 .backspace {
   grid-area: backspace;
+}
+.submit {
+  grid-area: submit;
+  font-size: 1.5rem;
 }
