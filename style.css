@@ -273,6 +273,10 @@ input[type="checkbox"] {
   gap: 7px;
   touch-action: manipulation;
 }
+.numeric {
+  touch-action: manipulation;
+  font-size: 1.75rem;
+}
 .numeric-one {
   grid-area: one;
 }
