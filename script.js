@@ -93,6 +93,10 @@ const btnCloseSummaryModalWindows = document.querySelector(
 );
 const summaryBoard = document.querySelector(".summary-board");
 
+// numeric pad------------------------>
+const numericPad = document.querySelectorAll(".numeric");
+const backspace = document.querySelector(".backspace");
+
 // global variables to use in app-------------------->
 let appRangeData = {
   lowerFirst: 10,
@@ -112,7 +116,8 @@ let x,
   dataType = "additionData",
   result,
   continious_addition_problems = false,
-  mixedCalculation = false;
+  mixedCalculation = false,
+  userInputString = "";
 
 // code starts here---------------->
 
@@ -180,6 +185,7 @@ function checkUserInput(userInput) {
     output.textContent = `${x} ${operator} ${y} = ${result}`;
     totalNumberOfOperations++;
     totalDigits += String(result).length;
+    userInputString = "";
     mixedCalculation ? randomOperatorGenerator() : displayRandomNumbers();
   } else {
     output.textContent = "";
@@ -504,6 +510,21 @@ btnTimer.addEventListener("click", () => {
   }
 });
 btnCloseSummaryModalWindows.addEventListener("click", closeSummaryModalWindow);
+
+for (let i = 0; i < numericPad.length; i++) {
+  numericPad[i].addEventListener("click", function () {
+    userInputString += this.textContent;
+    inputAnswer.value = userInputString;
+    console.log(userInputString);
+    checkUserInput(Number(userInputString));
+  });
+}
+backspace.addEventListener("click", function () {
+  userInputString = userInputString.slice(0, -1);
+  console.log(userInputString);
+  inputAnswer.value = userInputString;
+  checkUserInput(Number(userInputString));
+});
 /* 
 step 01: check if limits are already inserted in the web storage if available update variable
 step 02: if not use default limits from js script and set it to DOM

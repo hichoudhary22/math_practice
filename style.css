@@ -23,6 +23,7 @@ body {
   background-color: var(--body-bkg-color);
   color: var(--text-color);
   margin: 8px;
+  max-width: 400px;
 }
 button {
   background-color: var(--btn-bkg-color);
@@ -165,6 +166,7 @@ input::-webkit-inner-spin-button {
   border-top: 2px solid var(--border-color);
   margin: 8px;
   padding: 3px;
+  max-width: 400px;
 }
 .bottom-nav-bar button {
   font-size: 2rem;
@@ -260,4 +262,46 @@ input[type="checkbox"] {
 .close-summary-modal-window {
   font-size: 2.5rem;
   font-weight: bold;
+}
+.numeric-pad {
+  display: grid;
+  grid-template:
+    "one two three" 40px
+    "four five six" 40px
+    "seven eight nine" 40px
+    ". zero backspace" 40px / minmax(2rem, 0.5fr) minmax(2rem, 0.5fr) minmax(2rem, 0.5fr);
+  gap: 7px;
+}
+.numeric-one {
+  grid-area: one;
+}
+.numeric-two {
+  grid-area: two;
+}
+.numeric-three {
+  grid-area: three;
+}
+.numeric-four {
+  grid-area: four;
+}
+.numeric-five {
+  grid-area: five;
+}
+.numeric-six {
+  grid-area: six;
+}
+.numeric-seven {
+  grid-area: seven;
+}
+.numeric-eight {
+  grid-area: eight;
+}
+.numeric-nine {
+  grid-area: nine;
+}
+.numeric-zero {
+  grid-area: zero;
+}
+.backspace {
+  grid-area: backspace;
 }
