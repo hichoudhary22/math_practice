@@ -271,6 +271,7 @@ input[type="checkbox"] {
     "seven eight nine" 40px
     ". zero backspace" 40px / minmax(2rem, 0.5fr) minmax(2rem, 0.5fr) minmax(2rem, 0.5fr);
   gap: 7px;
+  touch-action: manipulation;
 }
 .numeric-one {
   grid-area: one;
