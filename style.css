@@ -181,6 +181,9 @@ input::-webkit-inner-spin-button {
   line-height: 0;
   margin: 2px 6px;
 }
+.btn-more-text {
+  transform: scaleX(-8px);
+}
 .hide-modal-window {
   font-size: 3rem;
   font-weight: bold;

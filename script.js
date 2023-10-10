@@ -312,7 +312,7 @@ function closeSummaryModalWindow() {
   output.textContent = "";
   inputAnswer.value = "";
   totalDigits = totalNumberOfOperations = keysPressed = 0;
-  totalCalculations.textContent = "Total Calculations :";
+  totalCalculations.textContent = "Total Calculations : 0";
   userInputString = "";
 }
 
