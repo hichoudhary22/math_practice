@@ -308,7 +308,6 @@ function resetCheckboxesAndAppBooleans() {
 
 function closeSummaryModalWindow() {
   summaryModalWindow.style.display = "none";
-  inputAnswer.disabled = false;
   displayRandomNumbers();
   output.textContent = "";
   inputAnswer.value = "";
@@ -320,7 +319,7 @@ function closeSummaryModalWindow() {
 function showSummary() {
   let efficiency, timeTakenPerOperation;
   if (totalNumberOfOperations === 0) {
-    efficiency = 0;
+    efficiency = "--";
     timeTakenPerOperation = "-- sec/calc";
   } else {
     efficiency = Number((totalDigits / keysPressed) * 100).toFixed(2);
@@ -331,16 +330,15 @@ function showSummary() {
 
   // setting question panel and message board empty
   inputFirstNumber.value = inputSecondNumber.value = "";
-  inputAnswer.disabled = true;
   right_or_wrong.textContent = "";
   btnRedLightGreenLight.style.animation = "bouncing-red ease-in 500ms 4";
 
   // showing summary modal window
   summaryModalWindow.style.display = "flex";
   summaryBoard.innerHTML = `<p>Total Time : ${toMMSS()}</p><hr>
-                                  <p>${totalNumberOfOperations} calculations in total</p><hr>
-                                  <p>Took ${timeTakenPerOperation}</p><hr>
-                                  <p>Efficiency : ${efficiency}</p>`;
+                            <p>${totalNumberOfOperations} calculations in total</p><hr>
+                            <p>Took ${timeTakenPerOperation}</p><hr>
+                            <p>Efficiency : ${efficiency}</p>`;
 
   clearInterval(timerRunning);
   inputTimer.value = 0;
@@ -358,11 +356,6 @@ function toMMSS() {
 
 // giving javascript power to modify contents of the page---------------------------->
 
-// inputAnswer.addEventListener("keyup", () => {
-//   keysPressed++;
-//   checkUserInput(Number(inputAnswer.value));
-// });
-
 selectOperator.addEventListener("change", () => {
   operator = selectOperator.value;
   modifyDataType();
@@ -378,7 +371,6 @@ btnMultiplication.addEventListener("click", () =>
 );
 btnDivide.addEventListener("click", () => bottomNavBarButtonPressed("/"));
 btnMore.addEventListener("click", () => {
-  // hideAllModalWindows();
   modalWindow.style.animation = "slideInBottom 500ms";
   modalWindow.style.display = "flex";
   modalWindowContent.style.display = "none";
