@@ -60,13 +60,14 @@ hr {
 }
 .input-timer {
   width: 80px;
-  /* height: 20px; */
+
   margin: 3px;
   text-align: center;
   font-size: 1.75rem;
 }
 input {
   text-align: right;
+  color: var(--first-color);
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -303,6 +304,7 @@ input[type="checkbox"] {
     "submit zero backspace" 50px / minmax(2rem, 0.5fr) minmax(2rem, 0.5fr) minmax(2rem, 0.5fr);
   gap: 7px;
   touch-action: manipulation;
+  margin-top: 7px;
 }
 .numeric,
 .backspace {

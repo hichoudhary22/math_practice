@@ -247,11 +247,9 @@ function displayData() {
 }
 
 function bottomNavBarButtonPressed(newOperator) {
-  // hideAllModalWindows();
   modalWindow.style.animation = "slideInBottom 500ms";
   resetCheckboxesAndAppBooleans();
   inputFirstNumber.value = inputSecondNumber.value = "";
-  // inputAnswer.disabled = true;
   operator = newOperator;
   modifyDataType();
   readData();
@@ -285,15 +283,13 @@ function saveAppRangeDataToLocalStorage() {
   localStorage.setItem(dataType, JSON.stringify(appRangeData));
 }
 
-function cancelButtonTasks(passedOperator) {
+function saveButtonTasks(passedOperator) {
   modalWindow.style.animation = "slideOutBottom 500ms";
   setTimeout(hideAllModalWindows, 500);
   passedOperator
     ? (selectOperator.value = operator = passedOperator)
     : randomOperatorGenerator();
-  // inputAnswer.disabled = false;
   modifyDataType();
-  readData();
   displayRandomNumbers();
 }
 function resetCheckboxesAndAppBooleans() {
@@ -341,7 +337,7 @@ function showSummary() {
                             <p>Efficiency : ${efficiency}</p>`;
 
   clearInterval(timerRunning);
-  inputTimer.value = 0;
+  inputTimer.value = "00:00";
   timerRunning = null;
   timerSeconds = 0;
 }
@@ -381,19 +377,24 @@ btnMore.addEventListener("click", () => {
 });
 
 window.onclick = function (event) {
-  if (event.target == modalWindow) cancelButtonTasks(selectOperator.value);
+  if (event.target == modalWindow) btnCancel.click();
   if (event.target == summaryModalWindow) closeSummaryModalWindow();
 };
 
 btnCancel.addEventListener("click", () => {
-  cancelButtonTasks(selectOperator.value);
+  modalWindow.style.animation = "slideOutBottom 500ms";
+  setTimeout(hideAllModalWindows, 500);
+  operator = selectOperator.value;
+  modifyDataType();
+  readData();
+  displayRandomNumbers();
 });
 
 btnAdditionSaveData.addEventListener("click", () => {
   continious_addition_problems
     ? (result = 0)
     : saveAppRangeDataToLocalStorage();
-  cancelButtonTasks("+");
+  saveButtonTasks("+");
 });
 
 continiousAdditionProblemsCheckbox.addEventListener("change", function () {
@@ -409,7 +410,7 @@ continiousAdditionProblemsCheckbox.addEventListener("change", function () {
 
 btnSubtractionSaveData.addEventListener("click", () => {
   saveAppRangeDataToLocalStorage();
-  cancelButtonTasks("-");
+  saveButtonTasks("-");
 });
 
 btnMultiplicationSaveData.addEventListener("click", () => {
@@ -422,7 +423,7 @@ btnMultiplicationSaveData.addEventListener("click", () => {
   } else {
     saveAppRangeDataToLocalStorage();
   }
-  cancelButtonTasks("*");
+  saveButtonTasks("*");
 });
 
 learnTableMultiplicationCheckbox.addEventListener("change", function () {
@@ -461,7 +462,7 @@ btnDivideSaveData.addEventListener("click", () => {
   } else {
     saveAppRangeDataToLocalStorage();
   }
-  cancelButtonTasks("/");
+  saveButtonTasks("/");
 });
 
 learnTableDivideCheckbox.addEventListener("change", function () {
@@ -492,7 +493,7 @@ learnTableDivideCheckbox.addEventListener("change", function () {
 
 btnMoreSaveData.addEventListener("click", () => {
   mixedCalculation = mixedCalculationCheckbox.checked ? true : false;
-  cancelButtonTasks();
+  saveButtonTasks();
 });
 
 btnCloseSummaryModalWindows.addEventListener("click", closeSummaryModalWindow);
