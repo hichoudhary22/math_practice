@@ -251,7 +251,7 @@ function bottomNavBarButtonPressed(newOperator) {
   modalWindow.style.animation = "slideInBottom 500ms";
   resetCheckboxesAndAppBooleans();
   inputFirstNumber.value = inputSecondNumber.value = "";
-  inputAnswer.disabled = true;
+  // inputAnswer.disabled = true;
   operator = newOperator;
   modifyDataType();
   readData();
@@ -291,8 +291,9 @@ function cancelButtonTasks(passedOperator) {
   passedOperator
     ? (selectOperator.value = operator = passedOperator)
     : randomOperatorGenerator();
-  inputAnswer.disabled = false;
+  // inputAnswer.disabled = false;
   modifyDataType();
+  readData();
   displayRandomNumbers();
 }
 function resetCheckboxesAndAppBooleans() {
@@ -363,7 +364,9 @@ function toMMSS() {
 // });
 
 selectOperator.addEventListener("change", () => {
+  operator = selectOperator.value;
   modifyDataType();
+  readData();
   displayRandomNumbers();
 });
 
