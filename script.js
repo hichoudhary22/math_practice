@@ -19,13 +19,6 @@ const selectOperator = document.querySelector(".select-operator");
 const inputSecondNumber = document.querySelector(".second-number");
 const inputAnswer = document.querySelector(".answer");
 
-// bottom nav bar buttons-------------------->
-const btnAddition = document.querySelector(".btn-addition");
-const btnSubtraction = document.querySelector(".btn-subtraction");
-const btnMultiplication = document.querySelector(".btn-multiplication");
-const btnDivide = document.querySelector(".btn-divide");
-const btnMore = document.querySelector(".btn-more");
-
 // modal windows-------------------------->
 const modalWindow = document.querySelector(".modal-window");
 const modalWindowContent = document.querySelector(".modal-window-content");
@@ -38,18 +31,6 @@ const inputLowerSecond = document.querySelector(".lower-second");
 const inputUpperSecond = document.querySelector(".upper-second");
 
 // specific modal windows------------------->
-const modalWindowContentAdditionData = document.querySelector(
-  ".modal-window-content-additionData"
-);
-const modalWindowContentSubtractionData = document.querySelector(
-  ".modal-window-content-subtractionData"
-);
-const modalWindowContentMultiplicationData = document.querySelector(
-  ".modal-window-content-multiplicationData"
-);
-const modalWindowContentDivideData = document.querySelector(
-  ".modal-window-content-divideData"
-);
 const modalWindowContentMoreData = document.querySelector(
   ".modal-window-content-more"
 );
@@ -75,17 +56,6 @@ const mixedCalculationCheckbox = document.querySelector(
   ".mixed-calculation-checkbox"
 );
 
-// specific save buttons-------------------------------->
-const btnAdditionSaveData = document.querySelector(".btn-addition-save-data");
-const btnSubtractionSaveData = document.querySelector(
-  ".btn-subtraction-save-data"
-);
-const btnMultiplicationSaveData = document.querySelector(
-  ".btn-multiplication-save-data"
-);
-const btnDivideSaveData = document.querySelector(".btn-divide-save-data");
-const btnMoreSaveData = document.querySelector(".btn-more-save-data");
-
 // summary modal windows-------------------------------->
 const summaryModalWindow = document.querySelector(".modal-window-summary");
 const btnCloseSummaryModalWindows = document.querySelector(
@@ -109,8 +79,8 @@ let appRangeData = {
 let x,
   y,
   operator = "+",
-  timerRunning,
-  timerSeconds = 0,
+  clockRunning,
+  timeInSeconds = 0,
   totalNumberOfOperations = 0,
   keysPressed = 0,
   totalDigits = 0,
@@ -261,12 +231,17 @@ function bottomNavBarButtonPressed(newOperator) {
 }
 
 function hideAllModalWindows() {
-  modalWindow.style.display = "none";
-  modalWindowContentAdditionData.style.display = "none";
-  modalWindowContentSubtractionData.style.display = "none";
-  modalWindowContentMultiplicationData.style.display = "none";
-  modalWindowContentDivideData.style.display = "none";
-  modalWindowContentMoreData.style.display = "none";
+  modalWindow.style.display =
+    document.querySelector(".modal-window-content-additionData").style.display =
+    document.querySelector(
+      ".modal-window-content-subtractionData"
+    ).style.display =
+    document.querySelector(
+      ".modal-window-content-multiplicationData"
+    ).style.display =
+    document.querySelector(".modal-window-content-divideData").style.display =
+    modalWindowContentMoreData.style.display =
+      "none";
 }
 
 function saveAppRangeDataToLocalStorage() {
@@ -320,7 +295,7 @@ function showSummary() {
   } else {
     efficiency = Number((totalDigits / keysPressed) * 100).toFixed(2);
     timeTakenPerOperation = `${Number(
-      timerSeconds / totalNumberOfOperations
+      timeInSeconds / totalNumberOfOperations
     ).toFixed(2)} sec/calc`;
   }
 
@@ -336,15 +311,15 @@ function showSummary() {
                             <p>Took ${timeTakenPerOperation}</p><hr>
                             <p>Efficiency : ${efficiency}</p>`;
 
-  clearInterval(timerRunning);
+  clearInterval(clockRunning);
   inputTimer.value = "00:00";
-  timerRunning = null;
-  timerSeconds = 0;
+  clockRunning = null;
+  timeInSeconds = 0;
 }
 
 function toMMSS() {
-  let minutes = Math.floor(timerSeconds / 60),
-    seconds = timerSeconds - minutes * 60;
+  let minutes = Math.floor(timeInSeconds / 60),
+    seconds = timeInSeconds - minutes * 60;
   if (minutes < 10) minutes = "0" + minutes;
   if (seconds < 10) seconds = "0" + seconds;
   return minutes + ":" + seconds;
@@ -360,13 +335,19 @@ selectOperator.addEventListener("change", () => {
 });
 
 // adding event listeners to bottom nav bar buttons--------------------------------->
-btnAddition.addEventListener("click", () => bottomNavBarButtonPressed("+"));
-btnSubtraction.addEventListener("click", () => bottomNavBarButtonPressed("-"));
-btnMultiplication.addEventListener("click", () =>
-  bottomNavBarButtonPressed("*")
-);
-btnDivide.addEventListener("click", () => bottomNavBarButtonPressed("/"));
-btnMore.addEventListener("click", () => {
+document
+  .querySelector(".btn-addition")
+  .addEventListener("click", () => bottomNavBarButtonPressed("+"));
+document
+  .querySelector(".btn-subtraction")
+  .addEventListener("click", () => bottomNavBarButtonPressed("-"));
+document
+  .querySelector(".btn-multiplication")
+  .addEventListener("click", () => bottomNavBarButtonPressed("*"));
+document
+  .querySelector(".btn-divide")
+  .addEventListener("click", () => bottomNavBarButtonPressed("/"));
+document.querySelector(".btn-more").addEventListener("click", () => {
   modalWindow.style.animation = "slideInBottom 500ms";
   modalWindow.style.display = "flex";
   modalWindowContent.style.display = "none";
@@ -390,12 +371,14 @@ btnCancel.addEventListener("click", () => {
   displayRandomNumbers();
 });
 
-btnAdditionSaveData.addEventListener("click", () => {
-  continious_addition_problems
-    ? (result = 0)
-    : saveAppRangeDataToLocalStorage();
-  saveButtonTasks("+");
-});
+document
+  .querySelector(".btn-addition-save-data")
+  .addEventListener("click", () => {
+    continious_addition_problems
+      ? (result = 0)
+      : saveAppRangeDataToLocalStorage();
+    saveButtonTasks("+");
+  });
 
 continiousAdditionProblemsCheckbox.addEventListener("change", function () {
   continious_addition_problems = this.checked;
@@ -408,23 +391,27 @@ continiousAdditionProblemsCheckbox.addEventListener("change", function () {
   }
 });
 
-btnSubtractionSaveData.addEventListener("click", () => {
-  saveAppRangeDataToLocalStorage();
-  saveButtonTasks("-");
-});
-
-btnMultiplicationSaveData.addEventListener("click", () => {
-  if (learnTableMultiplicationCheckbox.checked) {
-    appRangeData.lowerFirst = appRangeData.upperFirst = Number(
-      learnTableMultiplicationNumber.value
-    );
-    appRangeData.lowerSecond = 2;
-    appRangeData.upperSecond = 9;
-  } else {
+document
+  .querySelector(".btn-subtraction-save-data")
+  .addEventListener("click", () => {
     saveAppRangeDataToLocalStorage();
-  }
-  saveButtonTasks("*");
-});
+    saveButtonTasks("-");
+  });
+
+document
+  .querySelector(".btn-multiplication-save-data")
+  .addEventListener("click", () => {
+    if (learnTableMultiplicationCheckbox.checked) {
+      appRangeData.lowerFirst = appRangeData.upperFirst = Number(
+        learnTableMultiplicationNumber.value
+      );
+      appRangeData.lowerSecond = 2;
+      appRangeData.upperSecond = 9;
+    } else {
+      saveAppRangeDataToLocalStorage();
+    }
+    saveButtonTasks("*");
+  });
 
 learnTableMultiplicationCheckbox.addEventListener("change", function () {
   if (this.checked) {
@@ -452,18 +439,20 @@ learnTableMultiplicationCheckbox.addEventListener("change", function () {
   }
 });
 
-btnDivideSaveData.addEventListener("click", () => {
-  if (learnTableDivideCheckbox.checked) {
-    appRangeData.lowerSecond = appRangeData.upperSecond = Number(
-      learnTableDivideNumber.value
-    );
-    appRangeData.lowerFirst = 2;
-    appRangeData.upperFirst = 9;
-  } else {
-    saveAppRangeDataToLocalStorage();
-  }
-  saveButtonTasks("/");
-});
+document
+  .querySelector(".btn-divide-save-data")
+  .addEventListener("click", () => {
+    if (learnTableDivideCheckbox.checked) {
+      appRangeData.lowerSecond = appRangeData.upperSecond = Number(
+        learnTableDivideNumber.value
+      );
+      appRangeData.lowerFirst = 2;
+      appRangeData.upperFirst = 9;
+    } else {
+      saveAppRangeDataToLocalStorage();
+    }
+    saveButtonTasks("/");
+  });
 
 learnTableDivideCheckbox.addEventListener("change", function () {
   if (this.checked) {
@@ -491,7 +480,7 @@ learnTableDivideCheckbox.addEventListener("change", function () {
   }
 });
 
-btnMoreSaveData.addEventListener("click", () => {
+document.querySelector(".btn-more-save-data").addEventListener("click", () => {
   mixedCalculation = mixedCalculationCheckbox.checked ? true : false;
   saveButtonTasks();
 });
@@ -504,9 +493,9 @@ for (let i = 0; i < numericPad.length; i++) {
     inputAnswer.value = userInputString;
     checkUserInput(Number(userInputString));
     keysPressed++;
-    if (!timerRunning) {
-      timerRunning = setInterval(() => {
-        ++timerSeconds;
+    if (!clockRunning) {
+      clockRunning = setInterval(() => {
+        ++timeInSeconds;
         inputTimer.value = toMMSS();
       }, 1000);
     }
