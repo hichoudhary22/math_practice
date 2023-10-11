@@ -156,9 +156,9 @@ function checkUserInput(userInput) {
     totalCalculations.textContent =
       "Total Calculations : " + totalNumberOfOperations;
     totalDigits += String(result).length;
-    userInputString = "";
     setTimeout(() => {
       inputAnswer.value = "";
+      userInputString = "";
       mixedCalculation ? randomOperatorGenerator() : displayRandomNumbers();
     }, 500);
   } else {
@@ -509,40 +509,3 @@ backspace.addEventListener("click", function () {
 });
 
 submitBtn.addEventListener("click", showSummary);
-/* 
-step 01: check if limits are already inserted in the web storage if available update variable
-step 02: if not use default limits from js script and set it to DOM
-step 03: generate random numbers and update DOM
-step 04: checking the answer
-step 05: changing the operator
-step 06: using enter to submit
-step 07: removing up and down arrow of number input
-step 08: timer setup
-step 09: make it live using git
-step 10: right wrong panel
-step 11: vibration added but not working
-step 12: radio button/ checkbox for auto submit-> hide submit button and right wrong panel
-step 13: hide set limits button while timer running // skipped
-step 14: adding limits for all the operations
-step 15: displaying summary below grid
-step 16: mixed calculations
-*/
-
-/* marc 3 <preprations------------------->
-✅ step 01: make bottom nav bar with buttons addition subtraction multiplication divide more
-✅ step 02: make modal window and show it when the bottom navbar buttons are pressed
-✅ step 03: make separate modal window for every operation
-✅ step 04: bottom navigation bar is greyed out when the modal window is opened________ fix it...
-✅ step 05: addition bottom navbar button modal window and its normal functions
-________________________________________
-
-✅ step 06: message board animations
-step 07: color pallet
-step 08: change icon according to color pallet
-step 09: option for dark mode
-✅ step 10: time bound operations
-✅ a. creating timer
-✅ b. when timer stops displaying modal showing number of operations completed in given timer time and operation per second and efficiency
-
-✅ last step: animations
-*/
