@@ -73,6 +73,10 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+input:disabled {
+  -webkit-text-fill-color: var(--first-color);
+  opacity: 1;
+}
 .message-board {
   height: 120px;
   display: flex;
@@ -227,7 +231,7 @@ input::-webkit-inner-spin-button {
 }
 @keyframes slideInBottom {
   from {
-    transform: translateY(300px);
+    transform: translateY(400px);
   }
   to {
     transform: translateY(0);
@@ -238,7 +242,7 @@ input::-webkit-inner-spin-button {
     transform: translateY(0px);
   }
   to {
-    transform: translateY(300px);
+    transform: translateY(400px);
   }
 }
 .modal-window-content-all-data {
