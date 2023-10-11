@@ -117,7 +117,6 @@ function displayRandomNumbers() {
   inputFirstNumber.value = x;
   inputSecondNumber.value = y;
 
-  inputAnswer.focus();
   calculateAnswer();
 }
 
@@ -148,7 +147,7 @@ function calculateAnswer() {
 
 function checkUserInput(userInput) {
   if (userInput === result) {
-    inputAnswer.value = "";
+    inputAnswer.value = "✓ " + result;
     right_or_wrong.textContent = "right!!!!!";
     btnRedLightGreenLight.style.animation =
       "bouncing-green ease-in 1000ms forwards";
@@ -158,7 +157,10 @@ function checkUserInput(userInput) {
       "Total Calculations : " + totalNumberOfOperations;
     totalDigits += String(result).length;
     userInputString = "";
-    mixedCalculation ? randomOperatorGenerator() : displayRandomNumbers();
+    setTimeout(() => {
+      inputAnswer.value = "";
+      mixedCalculation ? randomOperatorGenerator() : displayRandomNumbers();
+    }, 500);
   } else {
     output.textContent = "";
     right_or_wrong.textContent = " keep trying...";
@@ -354,7 +356,6 @@ document.querySelector(".btn-more").addEventListener("click", () => {
   modalWindowContentMoreData.style.display = "block";
   mixedCalculationCheckbox.checked = false;
   inputFirstNumber.value = inputSecondNumber.value = "";
-  inputAnswer.disabled = true;
 });
 
 window.onclick = function (event) {
